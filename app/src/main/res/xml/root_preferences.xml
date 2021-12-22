@@ -1,0 +1,45 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <PreferenceCategory
+        android:icon="@drawable/ic_person"
+        android:textColor="#00838F"
+        android:title="Profile"
+        tools:ignore="TextContrastCheck">
+
+        <EditTextPreference
+            android:key="name"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            app:useSimpleSummaryProvider="true"
+            android:title="@string/name" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:disableDependentsState="false"
+            android:key="primary_owner"
+            android:title="@string/primary_owner" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:icon="@drawable/ic_location"
+        android:textColor="#00838F"
+        android:title="Location">
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:icon="@drawable/ic_security"
+        android:textColor="#00838F"
+        android:title="Security">
+        <SwitchPreference
+            android:dependency="primary_owner"
+            android:defaultValue="false"
+            android:key="close_option"
+            android:title="@string/close_title"
+            android:summaryOn="Device will close when you leave"
+            android:summaryOff="Device will close when everyone leaves"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>

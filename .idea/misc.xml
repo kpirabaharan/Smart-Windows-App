@@ -3,12 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/spkee/OneDrive - The University of Western Ontario/Desktop/Android Studio/SmartWindowsApp/app/src/main/res/drawable/ic_security.xml" value="0.403125" />
         <entry key="..\:/Users/spkee/OneDrive - The University of Western Ontario/Desktop/Android Studio/SmartWindowsApp/app/src/main/res/layout/activity_main.xml" value="0.18273615635179152" />
         <entry key="..\:/Users/spkee/OneDrive - The University of Western Ontario/Desktop/Android Studio/SmartWindowsApp/app/src/main/res/layout/fragment_1.xml" value="0.21875" />
         <entry key="..\:/Users/spkee/OneDrive - The University of Western Ontario/Desktop/Android Studio/SmartWindowsApp/app/src/main/res/layout/fragment_automatic.xml" value="0.38697916666666665" />
         <entry key="..\:/Users/spkee/OneDrive - The University of Western Ontario/Desktop/Android Studio/SmartWindowsApp/app/src/main/res/layout/fragment_manual.xml" value="0.39895833333333336" />
         <entry key="..\:/Users/spkee/OneDrive - The University of Western Ontario/Desktop/Android Studio/SmartWindowsApp/app/src/main/res/layout/fragment_smart.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/spkee/OneDrive - The University of Western Ontario/Desktop/Android Studio/SmartWindowsApp/app/src/main/res/layout/settings_activity.xml" value="0.2921875" />
         <entry key="..\:/Users/spkee/OneDrive - The University of Western Ontario/Desktop/Android Studio/SmartWindowsApp/app/src/main/res/menu/mode_menus.xml" value="0.2444078947368421" />
+        <entry key="..\:/Users/spkee/OneDrive - The University of Western Ontario/Desktop/Android Studio/SmartWindowsApp/app/src/main/res/menu/preferences.xml" value="0.38697916666666665" />
+        <entry key="..\:/Users/spkee/OneDrive - The University of Western Ontario/Desktop/Android Studio/SmartWindowsApp/app/src/main/res/menu/preferences_menu.xml" value="0.38697916666666665" />
+        <entry key="..\:/Users/spkee/OneDrive - The University of Western Ontario/Desktop/Android Studio/SmartWindowsApp/app/src/main/res/menu/settings_menu.xml" value="0.2921875" />
+        <entry key="..\:/Users/spkee/OneDrive - The University of Western Ontario/Desktop/Android Studio/SmartWindowsApp/app/src/main/res/xml/root_preferences.xml" value="0.2921875" />
       </map>
     </option>
   </component>

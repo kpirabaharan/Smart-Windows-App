@@ -10,4 +10,13 @@
     <string name="desired_temp_set_text">Set Desired Temperature</string>
     <string name="enter_temp">Enter Temp (15-30°C)</string>
     <string name="celsius">°C</string>
+
+    //Preferences
+    <string name="profile">Profile</string>
+    <string name="name">Your name</string>
+    <string name="primary_owner">Primary owner</string>
+    <string name="close_title">Close when you leave</string>
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
 </resources>

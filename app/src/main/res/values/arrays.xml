@@ -1,0 +1,12 @@
+<resources>
+    <!-- Close Preference -->
+    <string-array name="close_entries">
+        <item>Close when you leave</item>
+        <item>Close when everyone leaves</item>
+    </string-array>
+
+    <string-array name="close_values">
+        <item>close</item>
+        <item>close_all</item>
+    </string-array>
+</resources>
