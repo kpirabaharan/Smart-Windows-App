@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_modes"
+    app:startDestination="@id/smartFragment">
+
+    <fragment
+        android:id="@+id/smartFragment"
+        android:name="com.example.smartwindowsapp.SmartFragment"
+        android:label="SmartFragment" >
+        <action
+            android:id="@+id/action_smartFragment_to_manualFragment"
+            app:destination="@id/manualFragment" />
+        <action
+            android:id="@+id/action_smartFragment_to_automaticFragment"
+            app:destination="@id/automaticFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/automaticFragment"
+        android:name="com.example.smartwindowsapp.AutomaticFragment"
+        android:label="AutomaticFragment" >
+        <action
+            android:id="@+id/action_automaticFragment_to_smartFragment"
+            app:destination="@id/smartFragment" />
+        <action
+            android:id="@+id/action_automaticFragment_to_manualFragment"
+            app:destination="@id/manualFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/manualFragment"
+        android:name="com.example.smartwindowsapp.ManualFragment"
+        android:label="ManualFragment" >
+        <action
+            android:id="@+id/action_manualFragment_to_smartFragment"
+            app:destination="@id/smartFragment" />
+        <action
+            android:id="@+id/action_manualFragment_to_automaticFragment"
+            app:destination="@id/automaticFragment" />
+    </fragment>
+</navigation>
