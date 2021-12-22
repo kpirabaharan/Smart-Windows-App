@@ -13,6 +13,4 @@
         android:id="@+id/manual"
         android:title="Manual"
         android:icon="@drawable/ic_manual_foreground"/>
-
-
 </menu>

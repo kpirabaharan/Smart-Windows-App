@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Smart Windows App</string>
+    <string name="blinds_text">Blinds</string>
+    <string name="window_text">Window</string>
+    <string name="automatic_button_text">Automatic</string>
+    <string name="manual_button_text">Manual</string>
+    <string name="smart_button_text">Smart</string>
+    <string name="close_text">Close</string>
+    <string name="open_text">Open</string>
+    <string name="desired_temp_set_text">Set Desired Temperature</string>
+    <string name="enter_temp">Enter Temp (15-30°C)</string>
+    <string name="celsius">°C</string>
 </resources>
