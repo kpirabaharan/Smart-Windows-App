@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/automatic"
+        android:title="Automatic"
+        android:icon="@drawable/ic_auto_foreground"/>
+    <item
+        android:id="@+id/smart"
+        android:title="Smart"
+        android:icon="@drawable/ic_smart_foreground"/>
+    <item
+        android:id="@+id/manual"
+        android:title="Manual"
+        android:icon="@drawable/ic_manual_foreground"/>
+
+
+</menu>
