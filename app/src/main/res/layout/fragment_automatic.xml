@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
+    tools:context=".MainActivity"
+    android:background="@color/design_default_color_primary">
+    
     <TextView
         android:id="@+id/automatic_fragment"
         android:layout_width="wrap_content"

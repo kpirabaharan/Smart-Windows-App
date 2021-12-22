@@ -2,10 +2,45 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/mode_navigation"
-    app:startDestination="@id/automaticFragment">
+    app:startDestination="@id/smartFragment">
 
     <fragment
         android:id="@+id/automaticFragment"
         android:name="com.example.smartwindowsapp.AutomaticFragment"
-        android:label="AutomaticFragment" />
+        android:label="AutomaticFragment" >
+        <action
+            android:id="@+id/action_automaticFragment_to_smartFragment"
+            app:destination="@id/smartFragment"
+            app:enterAnim="@anim/nav_default_enter_anim" />
+        <action
+            android:id="@+id/action_automaticFragment_to_manualFragment"
+            app:destination="@id/manualFragment"
+            app:enterAnim="@anim/nav_default_enter_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/smartFragment"
+        android:name="com.example.smartwindowsapp.SmartFragment"
+        android:label="SmartFragment" >
+        <action
+            android:id="@+id/action_smartFragment_to_manualFragment"
+            app:destination="@id/manualFragment"
+            app:enterAnim="@anim/nav_default_enter_anim" />
+        <action
+            android:id="@+id/action_smartFragment_to_automaticFragment"
+            app:destination="@id/automaticFragment"
+            app:enterAnim="@anim/nav_default_enter_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/manualFragment"
+        android:name="com.example.smartwindowsapp.ManualFragment"
+        android:label="ManualFragment" >
+        <action
+            android:id="@+id/action_manualFragment_to_smartFragment"
+            app:destination="@id/smartFragment"
+            app:enterAnim="@anim/nav_default_enter_anim" />
+        <action
+            android:id="@+id/action_manualFragment_to_automaticFragment"
+            app:destination="@id/automaticFragment"
+            app:enterAnim="@anim/nav_default_enter_anim" />
+    </fragment>
 </navigation>
