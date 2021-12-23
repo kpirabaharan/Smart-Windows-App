@@ -17,7 +17,7 @@
     <string name="primary_owner">Primary owner</string>
     <string name="user_number">Number of app users</string>
     <string name="close_title">Close when you leave house</string>
-    <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>
+    <string name="dark_mode">Dark Mode</string>
 </resources>

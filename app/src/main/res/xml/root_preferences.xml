@@ -4,7 +4,6 @@
 
     <PreferenceCategory
         android:icon="@drawable/ic_person"
-        android:textColor="#00838F"
         android:title="Profile"
         tools:ignore="TextContrastCheck">
 
@@ -33,15 +32,14 @@
 
     <PreferenceCategory
         android:icon="@drawable/ic_location"
-        android:textColor="#00838F"
         android:title="Location">
 
     </PreferenceCategory>
 
     <PreferenceCategory
         android:icon="@drawable/ic_security"
-        android:textColor="#00838F"
         android:title="Security">
+
         <SwitchPreference
             android:dependency="primary_owner"
             android:defaultValue="false"
@@ -49,11 +47,24 @@
             android:title="@string/close_title"
             android:summaryOn="Device will close when you leave"
             android:summaryOff="Device will close when everyone leaves"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:icon="@drawable/ic_dark_mode"
+        android:title="Advanced">
+
+        <SwitchPreference
+            android:key="dark_mode"
+            android:title="@string/dark_mode"
+            android:defaultValue="0"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory
         android:title="About"
-        android:textColor="#00838F">
+        android:icon="@drawable/ic_horizontal_lines">
+
         <Preference
             android:key="version"
             android:title="Build Version"
