@@ -7,9 +7,14 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.preference.Preference
+import androidx.preference.PreferenceManager
+import com.example.smartwindowsapp.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.settings_menu, menu)
@@ -37,17 +42,35 @@ class MainActivity : AppCompatActivity() {
         val smartFragment = SmartFragment()
         val manualFragment = ManualFragment()
 
-        setCurrentFragment(smartFragment)
+        setCurrentFragment(smartFragment) // Sets current fragments, default fragment smart
 
         bottomNavigationView.setOnNavigationItemSelectedListener{
             when(it.itemId){
-                R.id.automatic -> setCurrentFragment(autoFragment)
+                R.id.automatic -> setCurrentFragment(autoFragment) // Maps bottom navigation to modes
                 R.id.manual -> setCurrentFragment(manualFragment)
                 R.id.smart -> setCurrentFragment(smartFragment)
             }
             true
         }
+
+        mySettings() // Runs function to retrieve setting values
     }
+
+    private fun mySettings(){ // Function to get settings values
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        val signature = prefs.getString("name", "")
+        val owner = prefs.getBoolean("primary_owner", false)
+        val numUsers = prefs.getInt("user_number", 1)
+        val security = prefs.getBoolean("close_option", false)
+
+        //println(prefs)
+        println(signature)
+        println(owner)
+        println(numUsers)
+        println(security)
+
+    }
+
     private fun setCurrentFragment(fragment: Fragment) =
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.fragment_c, fragment)

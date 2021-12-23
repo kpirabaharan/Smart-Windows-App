@@ -15,10 +15,19 @@
             app:useSimpleSummaryProvider="true"
             android:title="@string/name" />
         <SwitchPreference
+            android:key="primary_owner"
             android:defaultValue="false"
             android:disableDependentsState="false"
-            android:key="primary_owner"
             android:title="@string/primary_owner" />
+
+        <SeekBarPreference
+            android:dependency="primary_owner"
+            android:max="6"
+            app:defaultValue="1"
+            app:key="user_number"
+            app:min="1"
+            app:showSeekBarValue="true"
+            app:title="@string/user_number" />
 
     </PreferenceCategory>
 
@@ -40,6 +49,16 @@
             android:title="@string/close_title"
             android:summaryOn="Device will close when you leave"
             android:summaryOff="Device will close when everyone leaves"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="About"
+        android:textColor="#00838F">
+        <Preference
+            android:key="version"
+            android:title="Build Version"
+            android:summary="1.1.001"/>
+
     </PreferenceCategory>
 
 </PreferenceScreen>
