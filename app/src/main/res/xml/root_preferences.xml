@@ -14,9 +14,9 @@
             app:useSimpleSummaryProvider="true"
             android:title="@string/name" />
         <SwitchPreference
-            android:key="primary_owner"
             android:defaultValue="false"
             android:disableDependentsState="false"
+            android:key="primary_owner"
             android:title="@string/primary_owner" />
 
         <SeekBarPreference
@@ -57,6 +57,7 @@
         <SwitchPreference
             android:key="dark_mode"
             android:title="@string/dark_mode"
+            app:defaultValue="false"
             android:defaultValue="0"/>
 
     </PreferenceCategory>
