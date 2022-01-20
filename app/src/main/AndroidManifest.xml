@@ -12,10 +12,13 @@
         <activity
             android:name=".SettingsActivity"
             android:exported="false"
-            android:parentActivityName=".MainActivity"/> // Lets back button in Settings go back to Main Activity
+            android:parentActivityName=".MainActivity"/>
+<!--        Lets back button in Settings go back to Main Activity-->
         <activity
+            android:theme="@style/splashScreenTheme"
             android:name=".MainActivity"
             android:exported="true">
+            <!--        Default theme set to splash screen, later set to normal theme, only applied to main activity-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

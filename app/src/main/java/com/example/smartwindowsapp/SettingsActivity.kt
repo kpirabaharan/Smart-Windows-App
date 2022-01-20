@@ -33,7 +33,7 @@ class SettingsActivity : AppCompatActivity(), // Next line needed for onSharedPr
         if (key == "dark_mode")
         {
             val prefs = PreferenceManager.getDefaultSharedPreferences(this)
-            val dMode = prefs.getBoolean("dark_mode", false)
+            val dMode = prefs.getBoolean("dark_mode", true)
             if(dMode)
             {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)

@@ -13,12 +13,13 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceManager
-import com.example.smartwindowsapp.databinding.ActivityMainBinding
+//import com.example.smartwindowsapp.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding //What is this?
+    //private lateinit var binding: ActivityMainBinding //What is this?
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.settings_menu, menu)
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId){
             R.id.action_settings -> {
+                // Start settings menu
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
             }
@@ -37,6 +39,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(R.style.Theme_SmartWindowsApp)
         setContentView(R.layout.activity_main)
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
@@ -44,6 +47,8 @@ class MainActivity : AppCompatActivity() {
         val autoFragment = AutomaticFragment()
         val smartFragment = SmartFragment()
         val manualFragment = ManualFragment()
+
+
 
         setCurrentFragment(smartFragment) // Sets current fragments, default fragment smart
 
@@ -55,6 +60,9 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+
+        // New Code for fragments set up
+
 
         mySettings() // Runs function to retrieve setting values
 
