@@ -20,15 +20,16 @@ class SmartFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var temp = 0
+        desired_temp_text.text = "Set Desired Temperature"
         val unit = arrayOf("°C", "°F")
-        var cOrF = "°C"
-        // Temperature Selection
         temp_input.minValue = 15
         temp_input.maxValue = 30
         temp_unit.displayedValues = unit
         temp_unit.minValue = 0
         temp_unit.maxValue = unit.size-1
+        var cOrF = "°C"
+        // Temperature Selection
+        var temp = 17
         temp_input.setOnValueChangedListener { numberPicker, oldVal, newVal ->
             temp = newVal
             desired_temp_text.text = temp.toString()

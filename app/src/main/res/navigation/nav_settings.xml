@@ -2,45 +2,21 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_settings"
-    app:startDestination="@id/smartFragment2">
+    android:id="@+id/nav_settings">
     <fragment
-        android:id="@+id/preferenceFragment"
-        android:name="com.example.smartwindowsapp.PreferenceFragment"
-        android:label="PreferenceFragment" >
+        android:id="@+id/settingsFragment"
+        android:name="com.example.smartwindowsapp.SettingsActivity.SettingsFragment"
+        android:label="SettingsFragment" >
         <action
-            android:id="@+id/action_preferenceFragment_to_smartFragment2"
-            app:destination="@id/smartFragment2" />
-        <action
-            android:id="@+id/action_preferenceFragment_to_automaticFragment"
-            app:destination="@id/automaticFragment" />
-        <action
-            android:id="@+id/action_preferenceFragment_to_manualFragment"
+            android:id="@+id/action_settingsFragment_to_manualFragment"
             app:destination="@id/manualFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/smartFragment2"
-        android:name="com.example.smartwindowsapp.fragments.SmartFragment"
-        android:label="fragment_smart"
-        tools:layout="@layout/fragment_smart" >
-        <action
-            android:id="@+id/action_smartFragment2_to_preferenceFragment"
-            app:destination="@id/preferenceFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/automaticFragment"
-        android:name="com.example.smartwindowsapp.fragments.AutomaticFragment"
-        android:label="AutomaticFragment" >
-        <action
-            android:id="@+id/action_automaticFragment_to_preferenceFragment"
-            app:destination="@id/preferenceFragment" />
     </fragment>
     <fragment
         android:id="@+id/manualFragment"
         android:name="com.example.smartwindowsapp.fragments.ManualFragment"
         android:label="ManualFragment" >
         <action
-            android:id="@+id/action_manualFragment_to_preferenceFragment"
-            app:destination="@id/preferenceFragment" />
+            android:id="@+id/action_manualFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
 </navigation>

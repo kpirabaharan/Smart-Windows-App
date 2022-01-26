@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.preference.PreferenceManager
 import com.example.smartwindowsapp.databinding.ActivityMainBinding
 import com.example.smartwindowsapp.fragments.AutomaticFragment
@@ -58,9 +60,7 @@ class MainActivity : AppCompatActivity() {
         mySettings() // Runs function to retrieve setting values
     }
 
-
-
-    private fun mySettings(){ // Function to get settings values
+    private fun mySettings() { // Function to get settings values
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
         val signature = prefs.getString("name", "")
         val owner = prefs.getBoolean("primary_owner", false)
@@ -73,7 +73,6 @@ class MainActivity : AppCompatActivity() {
         println(owner)
         println(numUsers)
         println(security)
-
     }
 
     private fun setCurrentFragment(fragment: Fragment) =
