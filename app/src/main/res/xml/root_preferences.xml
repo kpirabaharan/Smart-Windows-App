@@ -69,7 +69,7 @@
         <Preference
             android:key="version"
             android:title="Build Version"
-            android:summary="1.1.001"/>
+            android:summary="1.11"/>
 
     </PreferenceCategory>
 

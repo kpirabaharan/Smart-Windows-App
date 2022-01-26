@@ -1,13 +1,11 @@
-package com.example.smartwindowsapp
+package com.example.smartwindowsapp.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.NumberPicker
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import com.example.smartwindowsapp.R
 import kotlinx.android.synthetic.main.fragment_smart.*
 
 class SmartFragment : Fragment() {
@@ -49,7 +47,7 @@ class SmartFragment : Fragment() {
                 temp_input.maxValue = 86
             }
             cOrF = unit[newVal]
-            desired_temp_text.text = temp.toString()
+            desired_temp_text.text = temp?.toString()
             desired_temp_text.append(cOrF)
         }
     }

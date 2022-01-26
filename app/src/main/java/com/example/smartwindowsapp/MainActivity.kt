@@ -1,25 +1,21 @@
 package com.example.smartwindowsapp
 
 import android.content.Intent
-import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.SeekBar
-import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
-import androidx.preference.Preference
 import androidx.preference.PreferenceManager
-//import com.example.smartwindowsapp.databinding.ActivityMainBinding
+import com.example.smartwindowsapp.databinding.ActivityMainBinding
+import com.example.smartwindowsapp.fragments.AutomaticFragment
+import com.example.smartwindowsapp.fragments.ManualFragment
+import com.example.smartwindowsapp.fragments.SmartFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    //private lateinit var binding: ActivityMainBinding //What is this?
+    private lateinit var binding: ActivityMainBinding //What is this?
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.settings_menu, menu)
@@ -48,10 +44,9 @@ class MainActivity : AppCompatActivity() {
         val smartFragment = SmartFragment()
         val manualFragment = ManualFragment()
 
-
-
         setCurrentFragment(smartFragment) // Sets current fragments, default fragment smart
 
+        // Sets fragment to appropriate mode based on the mode clicked in bottomNavBar
         bottomNavigationView.setOnNavigationItemSelectedListener{
             when(it.itemId){// Maps bottom navigation to modes
                 R.id.automatic -> { setCurrentFragment(autoFragment) }
@@ -60,13 +55,7 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-
-        // New Code for fragments set up
-
-
         mySettings() // Runs function to retrieve setting values
-
-
     }
 
 

@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/smartFragment2"
-        android:name="com.example.smartwindowsapp.SmartFragment"
+        android:name="com.example.smartwindowsapp.fragments.SmartFragment"
         android:label="fragment_smart"
         tools:layout="@layout/fragment_smart" >
         <action
@@ -29,7 +29,7 @@
     </fragment>
     <fragment
         android:id="@+id/automaticFragment"
-        android:name="com.example.smartwindowsapp.AutomaticFragment"
+        android:name="com.example.smartwindowsapp.fragments.AutomaticFragment"
         android:label="AutomaticFragment" >
         <action
             android:id="@+id/action_automaticFragment_to_preferenceFragment"
@@ -37,7 +37,7 @@
     </fragment>
     <fragment
         android:id="@+id/manualFragment"
-        android:name="com.example.smartwindowsapp.ManualFragment"
+        android:name="com.example.smartwindowsapp.fragments.ManualFragment"
         android:label="ManualFragment" >
         <action
             android:id="@+id/action_manualFragment_to_preferenceFragment"
