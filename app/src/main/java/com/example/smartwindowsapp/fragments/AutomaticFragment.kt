@@ -12,6 +12,15 @@ import kotlinx.android.synthetic.main.fragment_automatic.*
 
 class AutomaticFragment : Fragment(){
 
+    // Experiment with below funs
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -20,8 +29,14 @@ class AutomaticFragment : Fragment(){
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        timeSelection()
+        if(savedInstanceState == null) {
+            super.onViewCreated(view, savedInstanceState)
+            timeSelection()
+        }
+        if(savedInstanceState != null)
+        {
+            onViewStateRestored(savedInstanceState)
+        }
     }
 
     private fun timeSelection(){

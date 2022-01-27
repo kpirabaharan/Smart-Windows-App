@@ -52,30 +52,17 @@ class MainActivity : AppCompatActivity() {
         var currentFragment: Fragment
 
         setCurrentFragment(smartFragment) // Sets current fragment, default fragment smart
-        //currentFragment = smartFragment
 
         // Sets fragment to appropriate mode based on the mode clicked in bottomNavBar
         bottomNavigationView.setOnNavigationItemSelectedListener{
             when(it.itemId){// Maps bottom navigation to modes
-                R.id.automatic -> {
-                    setCurrentFragment(autoFragment)
-                    //currentFragment = autoFragment
-                }
-                R.id.manual -> {
-                    setCurrentFragment(manualFragment)
-                    //currentFragment = manualFragment
-                }
-                R.id.smart -> {
-                    setCurrentFragment(smartFragment)
-                    //currentFragment = smartFragment
-                }
+                R.id.automatic -> { setCurrentFragment(autoFragment) }
+                R.id.manual -> { setCurrentFragment(manualFragment) }
+                R.id.smart -> { setCurrentFragment(smartFragment) }
             }
             true
         }
         mySettings() // Runs function to retrieve setting values
-
-        // To get current Fragment
-        //println(currentFragment)
     }
 
     private fun mySettings() { // Function to get settings values
@@ -99,9 +86,4 @@ class MainActivity : AppCompatActivity() {
             addToBackStack(null) // Make back button work as intended
             commit()
         }
-
-    // getCurrentFragment test fun
-//    private fun getFragment(): Fragment{
-//        return Fragment()
-//    }
 }

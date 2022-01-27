@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-<!--    tools:context=".fragments.ManualFragment">-->
+    tools:context=".fragments.ManualFragment">
 
     <TextView
         android:id="@+id/window_open"

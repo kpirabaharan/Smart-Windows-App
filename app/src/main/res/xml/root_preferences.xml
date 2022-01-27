@@ -31,6 +31,29 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:icon="@drawable/ic_gear_2"
+        android:title="General"
+        tools:ignore="TextContrastCheck">
+
+        <SeekBarPreference
+            android:max="100"
+            app:defaultValue="100"
+            app:key="auto_blinds_open"
+            app:min="1"
+            app:showSeekBarValue="true"
+            app:title="Blinds Open to (Auto) " />
+
+        <SeekBarPreference
+            android:max="100"
+            app:defaultValue="100"
+            app:key="auto_window_open"
+            app:min="1"
+            app:showSeekBarValue="true"
+            app:title="Windows Open to (Auto) " />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:icon="@drawable/ic_location"
         android:title="Location">
 
@@ -69,7 +92,7 @@
         <Preference
             android:key="version"
             android:title="Build Version"
-            android:summary="1.11"/>
+            android:summary="1.15"/>
 
     </PreferenceCategory>
 
