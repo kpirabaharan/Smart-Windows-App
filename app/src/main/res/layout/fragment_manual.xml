@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-    //android:background="@color/design_default_color_primary">
-
+<!--    tools:context=".fragments.ManualFragment">-->
 
     <TextView
         android:id="@+id/window_open"
@@ -52,9 +51,9 @@
         android:id="@+id/blinds_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
         android:text="@string/blinds_text"
         android:textSize="40sp"
-        app:layout_constraintBottom_toTopOf="@+id/blinds_val"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -98,9 +97,9 @@
         android:id="@+id/window_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
         android:text="@string/window_text"
         android:textSize="40sp"
-        app:layout_constraintBottom_toTopOf="@+id/window_val"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"

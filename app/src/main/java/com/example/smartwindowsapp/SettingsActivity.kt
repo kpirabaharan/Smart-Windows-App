@@ -13,11 +13,15 @@ class SettingsActivity : AppCompatActivity(), // Next line needed for onSharedPr
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.settings_activity)
+
+        // Assume this is used to save settings?
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction().replace(R.id.settings,
                 SettingsFragment()).commit()
         }
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        // This enables back button in actionBar
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         // Below for Dark Mode
         PreferenceManager.getDefaultSharedPreferences(this)
             .registerOnSharedPreferenceChangeListener(this)

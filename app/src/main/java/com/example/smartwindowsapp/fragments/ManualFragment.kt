@@ -26,6 +26,12 @@ class ManualFragment : Fragment(){
         var windowLevel: Int
         val percent = "%"
 
+        blinds_seekbar.min = 0
+        blinds_seekbar.max = 10
+
+        window_seekbar.min = 0
+        window_seekbar.max = 10
+
         blinds_seekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 blindsLevel = progress*10

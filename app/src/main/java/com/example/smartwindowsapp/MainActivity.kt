@@ -1,5 +1,6 @@
 package com.example.smartwindowsapp
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -40,24 +41,41 @@ class MainActivity : AppCompatActivity() {
         setTheme(R.style.Theme_SmartWindowsApp)
         setContentView(R.layout.activity_main)
 
+        //val autoPref = getSharedPreferences("myPref", Context.MODE_PRIVATE)
+
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
 
         val autoFragment = AutomaticFragment()
         val smartFragment = SmartFragment()
         val manualFragment = ManualFragment()
 
-        setCurrentFragment(smartFragment) // Sets current fragments, default fragment smart
+        var currentFragment: Fragment
+
+        setCurrentFragment(smartFragment) // Sets current fragment, default fragment smart
+        //currentFragment = smartFragment
 
         // Sets fragment to appropriate mode based on the mode clicked in bottomNavBar
         bottomNavigationView.setOnNavigationItemSelectedListener{
             when(it.itemId){// Maps bottom navigation to modes
-                R.id.automatic -> { setCurrentFragment(autoFragment) }
-                R.id.manual -> { setCurrentFragment(manualFragment) }
-                R.id.smart -> { setCurrentFragment(smartFragment) }
+                R.id.automatic -> {
+                    setCurrentFragment(autoFragment)
+                    //currentFragment = autoFragment
+                }
+                R.id.manual -> {
+                    setCurrentFragment(manualFragment)
+                    //currentFragment = manualFragment
+                }
+                R.id.smart -> {
+                    setCurrentFragment(smartFragment)
+                    //currentFragment = smartFragment
+                }
             }
             true
         }
         mySettings() // Runs function to retrieve setting values
+
+        // To get current Fragment
+        //println(currentFragment)
     }
 
     private fun mySettings() { // Function to get settings values
@@ -81,4 +99,9 @@ class MainActivity : AppCompatActivity() {
             addToBackStack(null) // Make back button work as intended
             commit()
         }
+
+    // getCurrentFragment test fun
+//    private fun getFragment(): Fragment{
+//        return Fragment()
+//    }
 }
