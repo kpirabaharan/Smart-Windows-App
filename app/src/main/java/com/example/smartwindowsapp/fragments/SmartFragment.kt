@@ -11,23 +11,12 @@ import androidx.fragment.app.Fragment
 import com.example.smartwindowsapp.R
 import kotlinx.android.synthetic.main.fragment_smart.*
 
-class SmartFragment : Fragment(){
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_smart, container, false)
-    }
+class SmartFragment : Fragment(R.layout.fragment_smart){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-
         temperatureChange()
     }
-
 
     private fun temperatureChange(){
         desired_temp_text.text = "Set Desired Temperature"
