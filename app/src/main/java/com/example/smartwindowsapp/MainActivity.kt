@@ -52,8 +52,6 @@ class MainActivity : AppCompatActivity() {
         var sFlag = true
         var mFlag = false
 
-        var currentFragment: Fragment
-
         // First Fragment that opens is Smart
         supportFragmentManager.beginTransaction().apply {
             add(R.id.fragment_c, smartFragment)
@@ -72,8 +70,10 @@ class MainActivity : AppCompatActivity() {
                         } else {
                             show(autoFragment)
                         }
-                        hide(manualFragment)
-                        hide(smartFragment)
+                        if(mFlag)
+                            hide(manualFragment)
+                        if(sFlag)
+                            hide(smartFragment)
                         addToBackStack(null) // Make back button work as intended
                         commit()
                     }
@@ -87,8 +87,10 @@ class MainActivity : AppCompatActivity() {
                         } else {
                             show(manualFragment)
                         }
-                        hide(autoFragment)
-                        hide(smartFragment)
+                        if(aFlag)
+                            hide(autoFragment)
+                        if(sFlag)
+                            hide(smartFragment)
                         addToBackStack(null) // Make back button work as intended
                         commit()
                     }
@@ -99,11 +101,12 @@ class MainActivity : AppCompatActivity() {
                         if (!sFlag) {
                             sFlag = true
                             add(R.id.fragment_c, smartFragment)
-                        } else {
+                        } else
                             show(smartFragment)
-                        }
-                        hide(autoFragment)
-                        hide(manualFragment)
+                        if(aFlag)
+                            hide(autoFragment)
+                        if(mFlag)
+                            hide(manualFragment)
                         addToBackStack(null) // Make back button work as intended
                         commit()
                     }
