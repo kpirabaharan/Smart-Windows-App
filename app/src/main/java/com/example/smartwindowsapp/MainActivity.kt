@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId){
+        when (item.itemId) {
             R.id.action_settings -> {
                 // Start settings menu
                 val intent = Intent(this, SettingsActivity::class.java)
@@ -48,17 +48,66 @@ class MainActivity : AppCompatActivity() {
         val autoFragment = AutomaticFragment()
         val smartFragment = SmartFragment()
         val manualFragment = ManualFragment()
+        var aFlag = false
+        var sFlag = true
+        var mFlag = false
 
         var currentFragment: Fragment
 
-        setCurrentFragment(smartFragment) // Sets current fragment, default fragment smart
+        // First Fragment that opens is Smart
+        supportFragmentManager.beginTransaction().apply {
+            add(R.id.fragment_c, smartFragment)
+            commit()
+        }
 
-        // Sets fragment to appropriate mode based on the mode clicked in bottomNavBar
-        bottomNavigationView.setOnNavigationItemSelectedListener{
-            when(it.itemId){// Maps bottom navigation to modes
-                R.id.automatic -> { setCurrentFragment(autoFragment) }
-                R.id.manual -> { setCurrentFragment(manualFragment) }
-                R.id.smart -> { setCurrentFragment(smartFragment) }
+        // Sets fragment to appropriate mode based on the mode clicked in bottomNavBar, make into function
+        bottomNavigationView.setOnNavigationItemSelectedListener {
+            when (it.itemId) {// Maps bottom navigation to modes
+                R.id.automatic -> {
+                    supportFragmentManager.beginTransaction().apply {
+                        setReorderingAllowed(true)
+                        if (!aFlag) {
+                            aFlag = true
+                            add(R.id.fragment_c, autoFragment)
+                        } else {
+                            show(autoFragment)
+                        }
+                        hide(manualFragment)
+                        hide(smartFragment)
+                        addToBackStack(null) // Make back button work as intended
+                        commit()
+                    }
+                }
+                R.id.manual -> {
+                    supportFragmentManager.beginTransaction().apply {
+                        setReorderingAllowed(true)
+                        if (!mFlag) {
+                            mFlag = true
+                            add(R.id.fragment_c, manualFragment)
+                        } else {
+                            show(manualFragment)
+                        }
+                        hide(autoFragment)
+                        hide(smartFragment)
+                        addToBackStack(null) // Make back button work as intended
+                        commit()
+                    }
+                }
+                R.id.smart -> {
+                    supportFragmentManager.beginTransaction().apply {
+                        setReorderingAllowed(true)
+                        if (!sFlag) {
+                            sFlag = true
+                            add(R.id.fragment_c, smartFragment)
+                        } else {
+                            show(smartFragment)
+                        }
+                        hide(autoFragment)
+                        hide(manualFragment)
+                        addToBackStack(null) // Make back button work as intended
+                        commit()
+                    }
+                }
             }
             true
         }
@@ -79,11 +128,4 @@ class MainActivity : AppCompatActivity() {
         println(numUsers)
         println(security)
     }
-
-    private fun setCurrentFragment(fragment: Fragment) =
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.fragment_c, fragment)
-            addToBackStack(null) // Make back button work as intended
-            commit()
-        }
 }
