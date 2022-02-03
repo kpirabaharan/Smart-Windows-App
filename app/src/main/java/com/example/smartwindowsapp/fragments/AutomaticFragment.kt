@@ -1,32 +1,13 @@
 package com.example.smartwindowsapp.fragments
 
-import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.smartwindowsapp.R
 import kotlinx.android.synthetic.main.fragment_automatic.*
 
 
-class AutomaticFragment : Fragment(){
-
-    // Experiment with below funs
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_automatic, container, false)
-    }
+class AutomaticFragment : Fragment(R.layout.fragment_automatic){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         if(savedInstanceState == null) {
