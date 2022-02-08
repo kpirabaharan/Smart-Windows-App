@@ -21,8 +21,6 @@ class SmartFragment : Fragment(R.layout.fragment_smart){
 
     private val smartCollectionRef = Firebase.firestore.collection("smartValues")
 
-    var oldTemp = 0;
-    var oldcOrF = "°C"
     var temp = 0;
     var cOrF = "°C"
 
@@ -57,29 +55,24 @@ class SmartFragment : Fragment(R.layout.fragment_smart){
         }
     }
 
-    private fun getOldSmartValues(): SmartValues{
-        val temp = oldTemp
-        val unit = oldcOrF
-        return SmartValues(temp, unit)
-    }
-
     private fun getNewSmartValues(): SmartValues{
         val temp = temp
         val unit = cOrF
         return SmartValues(temp, unit)
     }
 
-    private fun updateSmartValues(oldSmartValues: SmartValues, newSmartValues: SmartValues) = CoroutineScope(Dispatchers.IO).launch {
+    private fun updateSmartValues(newSmartValues: SmartValues) = CoroutineScope(Dispatchers.IO).launch {
+        // Value can be anything, just update firebase
         val smartValuesQuery = smartCollectionRef
-            // Can be any value, just update firestore to whats on the app
-//            .whereEqualTo("temp", oldSmartValues.temp)
-//            .whereEqualTo("unit", oldSmartValues.unit)
             .get()
             .await()
         for (document in smartValuesQuery){
             try {
                 smartCollectionRef.document(document.id).update("temp", newSmartValues.temp).await()
                 smartCollectionRef.document(document.id).update("unit", newSmartValues.unit).await()
+//                withContext(Dispatchers.Main){
+//                    Toast.makeText(activity, "Changed", Toast.LENGTH_SHORT).show()
+//                }
             }catch (e: Exception){
                 withContext(Dispatchers.Main){
                     Toast.makeText(activity, e.message, Toast.LENGTH_LONG).show()
@@ -107,9 +100,7 @@ class SmartFragment : Fragment(R.layout.fragment_smart){
         if(!sOnFlag){
             sOnFlag = true
             temp = sPref.getInt("temperature", -1)
-            oldTemp = sPref.getInt("temperature", -1)
             cOrF = unit[sPref.getInt("unit", 0)]
-            oldcOrF = unit[sPref.getInt("unit", 0)]
             if(temp != -1){
                 desired_temp_text.text = "Desired Temperature: "
                 desired_temp_text.append(temp.toString())
@@ -126,7 +117,6 @@ class SmartFragment : Fragment(R.layout.fragment_smart){
         // Temperature Selection
         temp_input.setOnValueChangedListener { numberPicker, oldVal, newVal ->
             temp = newVal
-            oldTemp = oldVal
             desired_temp_text.text = "Desired Temperature: "
             desired_temp_text.append(temp.toString())
             desired_temp_text.append(cOrF)
@@ -135,35 +125,25 @@ class SmartFragment : Fragment(R.layout.fragment_smart){
                 putInt("temperature", temp)
                 apply()
             }
-            val oldSmartValues = getOldSmartValues()
             val newSmartValues = getNewSmartValues()
-            updateSmartValues(oldSmartValues, newSmartValues)
+            updateSmartValues(newSmartValues)
         }
 
         temp_unit.setOnValueChangedListener { numberPicker, oldVal, newVal ->
-            if (temp_unit.value == 0)
-            {
+            if (temp_unit.value == 0) {
                 temp_input.minValue = 15
                 temp_input.maxValue = 30
                 temp_input.value = 15
             }
-            else
-            {
+            else {
                 temp_input.minValue = 59
                 temp_input.maxValue = 86
             }
-            // Update old Values before temperature changes so switching can be done
-            oldcOrF = unit[oldVal]
-            oldTemp = temp
             cOrF = unit[newVal]
-            if(temp_unit.value == 0){
-               // oldTemp = 15;
+            if(temp_unit.value == 0)
                 temp = 15
-            }
-            else{
-                //oldTemp = 59;
+            else
                 temp = 59
-            }
             desired_temp_text.text = "Desired Temperature: "
             desired_temp_text.append(temp.toString())
             desired_temp_text.append(cOrF)
@@ -173,9 +153,8 @@ class SmartFragment : Fragment(R.layout.fragment_smart){
                 putInt("unit", newVal)
                 apply()
             }
-            val oldSmartValues = getOldSmartValues()
             val newSmartValues = getNewSmartValues()
-            updateSmartValues(oldSmartValues, newSmartValues)
+            updateSmartValues(newSmartValues)
         }
     }
 }
