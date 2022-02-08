@@ -3,16 +3,91 @@ package com.example.smartwindowsapp.fragments
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.smartwindowsapp.R
+import com.example.smartwindowsapp.classes.SmartValues
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_smart.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
+import java.lang.Exception
 
 class SmartFragment : Fragment(R.layout.fragment_smart){
+
+    private val smartCollectionRef = Firebase.firestore.collection("smartValues")
+
+    var oldTemp = 0;
+    var oldcOrF = "°C"
+    var temp = 0;
+    var cOrF = "°C"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         temperatureChange()
+        btnSave.setOnClickListener {
+//            print("Old Temp: $oldTemp")
+//            print("New Temp: $temp")
+//            print("Old Unit: $oldcOrF")
+//            print("New Unit: $cOrF")
+            val temperature = temp
+            val tempUnit = cOrF
+            val smartValues = SmartValues(temperature, tempUnit)
+            saveTemp(smartValues)
+        }
     }
+
+    // Saves temperature for the first time in fireStore
+    private fun saveTemp(smartValues: SmartValues) = CoroutineScope(Dispatchers.IO).launch{
+        // Try catch b/c we are uploading to a server
+        // Simple toasts for confirmation
+        try {
+            smartCollectionRef.add(smartValues).await()
+            withContext(Dispatchers.Main){
+                Toast.makeText(activity, "Successfully saved temperature.", Toast.LENGTH_LONG).show()
+            }
+        }catch(e: Exception){
+            withContext(Dispatchers.Main){
+                Toast.makeText(activity, e.message, Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    private fun getOldSmartValues(): SmartValues{
+        val temp = oldTemp
+        val unit = oldcOrF
+        return SmartValues(temp, unit)
+    }
+
+    private fun getNewSmartValues(): SmartValues{
+        val temp = temp
+        val unit = cOrF
+        return SmartValues(temp, unit)
+    }
+
+    private fun updateSmartValues(oldSmartValues: SmartValues, newSmartValues: SmartValues) = CoroutineScope(Dispatchers.IO).launch {
+        val smartValuesQuery = smartCollectionRef
+            // Can be any value, just update firestore to whats on the app
+//            .whereEqualTo("temp", oldSmartValues.temp)
+//            .whereEqualTo("unit", oldSmartValues.unit)
+            .get()
+            .await()
+        for (document in smartValuesQuery){
+            try {
+                smartCollectionRef.document(document.id).update("temp", newSmartValues.temp).await()
+                smartCollectionRef.document(document.id).update("unit", newSmartValues.unit).await()
+            }catch (e: Exception){
+                withContext(Dispatchers.Main){
+                    Toast.makeText(activity, e.message, Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+    }
+
 
     private fun temperatureChange(){
         desired_temp_text.text = "Set Desired Temperature"
@@ -24,8 +99,6 @@ class SmartFragment : Fragment(R.layout.fragment_smart){
         temp_unit.displayedValues = unit
         temp_unit.minValue = 0
         temp_unit.maxValue = unit.size-1
-        var cOrF = "°C"
-        var temp: Int
 
         val sPref = requireActivity().getPreferences(Context.MODE_PRIVATE)
         val sEditor = sPref.edit()
@@ -34,7 +107,9 @@ class SmartFragment : Fragment(R.layout.fragment_smart){
         if(!sOnFlag){
             sOnFlag = true
             temp = sPref.getInt("temperature", -1)
+            oldTemp = sPref.getInt("temperature", -1)
             cOrF = unit[sPref.getInt("unit", 0)]
+            oldcOrF = unit[sPref.getInt("unit", 0)]
             if(temp != -1){
                 desired_temp_text.text = "Desired Temperature: "
                 desired_temp_text.append(temp.toString())
@@ -51,6 +126,7 @@ class SmartFragment : Fragment(R.layout.fragment_smart){
         // Temperature Selection
         temp_input.setOnValueChangedListener { numberPicker, oldVal, newVal ->
             temp = newVal
+            oldTemp = oldVal
             desired_temp_text.text = "Desired Temperature: "
             desired_temp_text.append(temp.toString())
             desired_temp_text.append(cOrF)
@@ -59,6 +135,9 @@ class SmartFragment : Fragment(R.layout.fragment_smart){
                 putInt("temperature", temp)
                 apply()
             }
+            val oldSmartValues = getOldSmartValues()
+            val newSmartValues = getNewSmartValues()
+            updateSmartValues(oldSmartValues, newSmartValues)
         }
 
         temp_unit.setOnValueChangedListener { numberPicker, oldVal, newVal ->
@@ -73,11 +152,18 @@ class SmartFragment : Fragment(R.layout.fragment_smart){
                 temp_input.minValue = 59
                 temp_input.maxValue = 86
             }
+            // Update old Values before temperature changes so switching can be done
+            oldcOrF = unit[oldVal]
+            oldTemp = temp
             cOrF = unit[newVal]
-            if(temp_unit.value == 0)
+            if(temp_unit.value == 0){
+               // oldTemp = 15;
                 temp = 15
-            else
+            }
+            else{
+                //oldTemp = 59;
                 temp = 59
+            }
             desired_temp_text.text = "Desired Temperature: "
             desired_temp_text.append(temp.toString())
             desired_temp_text.append(cOrF)
@@ -87,6 +173,9 @@ class SmartFragment : Fragment(R.layout.fragment_smart){
                 putInt("unit", newVal)
                 apply()
             }
+            val oldSmartValues = getOldSmartValues()
+            val newSmartValues = getNewSmartValues()
+            updateSmartValues(oldSmartValues, newSmartValues)
         }
     }
 }

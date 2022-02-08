@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-android-extensions'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -44,6 +45,8 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.4.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.4.0'
 
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.0.1'
+
     implementation 'androidx.preference:preference-ktx:1.2.0'
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -52,6 +55,10 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     implementation("androidx.fragment:fragment-ktx:1.4.1")
+
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.1.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
 
     implementation 'com.google.android.material:material:1.6.0-alpha02'
     // Navigation Components
