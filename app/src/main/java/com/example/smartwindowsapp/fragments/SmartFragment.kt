@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.smartwindowsapp.R
 import com.example.smartwindowsapp.classes.SmartValues
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_smart.*
@@ -19,7 +20,10 @@ import java.lang.Exception
 
 class SmartFragment : Fragment(R.layout.fragment_smart){
 
+    // Firestore
     private val smartCollectionRef = Firebase.firestore.collection("smartValues")
+    // Realtime
+    private val smartDatabase = FirebaseDatabase.getInstance().reference
 
     var temp = 0;
     var cOrF = "°C"
@@ -27,16 +31,12 @@ class SmartFragment : Fragment(R.layout.fragment_smart){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         temperatureChange()
-        btnSave.setOnClickListener {
-//            print("Old Temp: $oldTemp")
-//            print("New Temp: $temp")
-//            print("Old Unit: $oldcOrF")
-//            print("New Unit: $cOrF")
-            val temperature = temp
-            val tempUnit = cOrF
-            val smartValues = SmartValues(temperature, tempUnit)
-            saveTemp(smartValues)
-        }
+//        btnSave.setOnClickListener {
+//            val temperature = temp
+//            val tempUnit = cOrF
+//            val smartValues = SmartValues(temperature, tempUnit)
+//            saveTemp(smartValues)
+//        }
     }
 
     // Saves temperature for the first time in fireStore
@@ -44,7 +44,10 @@ class SmartFragment : Fragment(R.layout.fragment_smart){
         // Try catch b/c we are uploading to a server
         // Simple toasts for confirmation
         try {
+            // Push to Firestore
             smartCollectionRef.add(smartValues).await()
+            // Push to Realtime
+            smartDatabase.setValue(smartValues).await()
             withContext(Dispatchers.Main){
                 Toast.makeText(activity, "Successfully saved temperature.", Toast.LENGTH_LONG).show()
             }
@@ -62,25 +65,36 @@ class SmartFragment : Fragment(R.layout.fragment_smart){
     }
 
     private fun updateSmartValues(newSmartValues: SmartValues) = CoroutineScope(Dispatchers.IO).launch {
-        // Value can be anything, just update firebase
-        val smartValuesQuery = smartCollectionRef
+        // Value can be anything, just update database
+        // Firestore
+        val smartValuesQueryFirestore = smartCollectionRef
             .get()
             .await()
-        for (document in smartValuesQuery){
+        // Realtime
+        val smartValuesQueryRealtime = smartDatabase
+            .get()
+            .await()
+        // Firestore
+        for (document in smartValuesQueryFirestore){
             try {
                 smartCollectionRef.document(document.id).update("temp", newSmartValues.temp).await()
                 smartCollectionRef.document(document.id).update("unit", newSmartValues.unit).await()
-//                withContext(Dispatchers.Main){
-//                    Toast.makeText(activity, "Changed", Toast.LENGTH_SHORT).show()
-//                }
             }catch (e: Exception){
                 withContext(Dispatchers.Main){
                     Toast.makeText(activity, e.message, Toast.LENGTH_LONG).show()
                 }
             }
         }
+        // Realtime
+        try {
+            smartDatabase.child("temp").setValue(newSmartValues.temp).await()
+            smartDatabase.child("unit").setValue(newSmartValues.unit).await()
+        }catch (e: Exception){
+            withContext(Dispatchers.Main){
+                Toast.makeText(activity, e.message, Toast.LENGTH_LONG).show()
+            }
+        }
     }
-
 
     private fun temperatureChange(){
         desired_temp_text.text = "Set Desired Temperature"
