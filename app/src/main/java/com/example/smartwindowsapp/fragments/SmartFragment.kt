@@ -1,12 +1,10 @@
 package com.example.smartwindowsapp.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.smartwindowsapp.R
-import com.example.smartwindowsapp.classes.SmartValues
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
@@ -14,15 +12,13 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_smart.*
 import kotlinx.coroutines.*
-import kotlinx.coroutines.tasks.await
 import java.lang.Exception
-import java.lang.StringBuilder
 
 class SmartFragment : Fragment(R.layout.fragment_smart){
-    // Realtime
-    private val sD = Firebase.database
-    private val tempD = sD.getReference("temp")
-    private val unitD = sD.getReference("unit")
+    // Realtime Database
+    private val sD = Firebase.database.reference.child("Smart")
+    private val tempD = sD.child("temp")
+    private val unitD = sD.child("unit")
 
     var temp = 0;
     var cOrF = "°C"
@@ -30,12 +26,6 @@ class SmartFragment : Fragment(R.layout.fragment_smart){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         temperatureChange()
-//        btnSave.setOnClickListener {
-//            val temperature = temp
-//            val tempUnit = cOrF
-//            val smartValues = SmartValues(temperature, tempUnit)
-//            saveTemp(smartValues)
-//        }
     }
 
     private fun temperatureChange(){
@@ -52,9 +42,9 @@ class SmartFragment : Fragment(R.layout.fragment_smart){
         // Initialize to last set temperature, obtained from Realtime Database, only on starting fragment
         tempD.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val tempD = dataSnapshot.getValue<Int>()
-                if (tempD != null) {
-                    temp = tempD
+                val tempData = dataSnapshot.getValue<Int>()
+                if (tempData != null) {
+                    temp = tempData
                     if(temp in 59..86) {
                         temp_input.minValue = 59
                         temp_input.maxValue = 86
@@ -72,12 +62,13 @@ class SmartFragment : Fragment(R.layout.fragment_smart){
         // Temperature Selection
         temp_input.setOnValueChangedListener { numberPicker, oldVal, newVal ->
             temp = newVal
+            tempD.setValue(newVal)
             desiredTempText()
-            val newSmartValues = getNewSmartValues()
-            updateSmartValues(newSmartValues)
         }
 
         temp_unit.setOnValueChangedListener { numberPicker, oldVal, newVal ->
+            // Uploads 0 if C, 1 if F
+            unitD.setValue(newVal)
             // If unit is C change values to 15...30 and default value of 15
             if (temp_unit.value == 0) {
                 temp_input.minValue = 15
@@ -94,45 +85,9 @@ class SmartFragment : Fragment(R.layout.fragment_smart){
                 temp = 15
             else
                 temp = 59
+            tempD.setValue(temp)
             desiredTempText()
-            val newSmartValues = getNewSmartValues()
-            updateSmartValues(newSmartValues)
         }
-    }
-
-    // Saves temperature for the first time in fireStore
-    private fun saveTemp(smartValues: SmartValues) = CoroutineScope(Dispatchers.IO).launch{
-        // Try catch b/c we are uploading to a server
-        try {
-            // Push to Realtime
-            tempD.setValue(smartValues.temp)
-            unitD.setValue(smartValues.unit)
-            withContext(Dispatchers.Main){
-                Toast.makeText(activity, "Successfully saved temperature.", Toast.LENGTH_LONG).show()
-            }
-        }catch(e: Exception){
-            withContext(Dispatchers.Main){
-                Toast.makeText(activity, e.message, Toast.LENGTH_LONG).show()
-            }
-        }
-    }
-
-    private fun updateSmartValues(newSmartValues: SmartValues) = CoroutineScope(Dispatchers.IO).launch {
-        // Value can be anything, just update database
-        // Realtime
-        try {
-            tempD.setValue(newSmartValues.temp)
-            unitD.setValue(newSmartValues.unit)
-        }catch (e: Exception){
-            withContext(Dispatchers.Main){
-                Toast.makeText(activity, e.message, Toast.LENGTH_LONG).show()
-            }
-        }
-    }
-    private fun getNewSmartValues(): SmartValues{
-        val temp = temp
-        val unit = cOrF
-        return SmartValues(temp, unit)
     }
 
     private fun desiredTempText(){
