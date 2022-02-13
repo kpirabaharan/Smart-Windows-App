@@ -92,7 +92,7 @@
         <Preference
             android:key="version"
             android:title="Build Version"
-            android:summary="1.15"/>
+            android:summary="1.20"/>
 
     </PreferenceCategory>
 

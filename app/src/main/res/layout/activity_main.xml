@@ -23,9 +23,9 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
-        android:layout_height="65dp"
+        android:layout_height="60dp"
         android:isScrollContainer="false"
-        app:itemIconSize="40sp"
+        app:itemIconSize="30sp"
         app:itemHorizontalTranslationEnabled="false"
         app:labelVisibilityMode="auto"
         app:layout_constraintBottom_toBottomOf="parent"

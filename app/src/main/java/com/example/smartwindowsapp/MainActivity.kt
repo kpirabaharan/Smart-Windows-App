@@ -48,69 +48,17 @@ class MainActivity : AppCompatActivity() {
         val autoFragment = AutomaticFragment()
         val smartFragment = SmartFragment()
         val manualFragment = ManualFragment()
-        var aFlag = false
-        var sFlag = true
-        var mFlag = false
 
-        // First Fragment that opens is Smart
-        supportFragmentManager.beginTransaction().apply {
-            add(R.id.fragment_c, smartFragment)
-            commit()
-        }
+        var currentFragment: Fragment
 
-        // Sets fragment to appropriate mode based on the mode clicked in bottomNavBar, make into function
-        bottomNavigationView.setOnNavigationItemSelectedListener {
-            when (it.itemId) {// Maps bottom navigation to modes
-                R.id.automatic -> {
-                    supportFragmentManager.beginTransaction().apply {
-                        setReorderingAllowed(true)
-                        if (!aFlag) {
-                            aFlag = true
-                            add(R.id.fragment_c, autoFragment)
-                        } else {
-                            show(autoFragment)
-                        }
-                        if(mFlag)
-                            hide(manualFragment)
-                        if(sFlag)
-                            hide(smartFragment)
-                        addToBackStack(null) // Make back button work as intended
-                        commit()
-                    }
-                }
-                R.id.manual -> {
-                    supportFragmentManager.beginTransaction().apply {
-                        setReorderingAllowed(true)
-                        if (!mFlag) {
-                            mFlag = true
-                            add(R.id.fragment_c, manualFragment)
-                        } else {
-                            show(manualFragment)
-                        }
-                        if(aFlag)
-                            hide(autoFragment)
-                        if(sFlag)
-                            hide(smartFragment)
-                        addToBackStack(null) // Make back button work as intended
-                        commit()
-                    }
-                }
-                R.id.smart -> {
-                    supportFragmentManager.beginTransaction().apply {
-                        setReorderingAllowed(true)
-                        if (!sFlag) {
-                            sFlag = true
-                            add(R.id.fragment_c, smartFragment)
-                        } else
-                            show(smartFragment)
-                        if(aFlag)
-                            hide(autoFragment)
-                        if(mFlag)
-                            hide(manualFragment)
-                        addToBackStack(null) // Make back button work as intended
-                        commit()
-                    }
-                }
+        setCurrentFragment(smartFragment) // Sets current fragment, default fragment smart
+
+        // Sets fragment to appropriate mode based on the mode clicked in bottomNavBar
+        bottomNavigationView.setOnNavigationItemSelectedListener{
+            when(it.itemId){// Maps bottom navigation to modes
+                R.id.automatic -> { setCurrentFragment(autoFragment) }
+                R.id.manual -> { setCurrentFragment(manualFragment) }
+                R.id.smart -> { setCurrentFragment(smartFragment) }
             }
             true
         }
@@ -131,4 +79,11 @@ class MainActivity : AppCompatActivity() {
         println(numUsers)
         println(security)
     }
+
+    private fun setCurrentFragment(fragment: Fragment) =
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.fragment_c, fragment)
+            addToBackStack(null) // Make back button work as intended
+            commit()
+        }
 }
