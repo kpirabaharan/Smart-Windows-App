@@ -82,6 +82,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun setCurrentFragment(fragment: Fragment) =
         supportFragmentManager.beginTransaction().apply {
+            setReorderingAllowed(true)
+//            setCustomAnimations(
+//                enter = R.anim.slide_in,
+//                exit = R.anim.fade_out,
+//                popEnter = R.anim.fade_in,
+//                popExit = R.anim.slide_out
+//            )
             replace(R.id.fragment_c, fragment)
             addToBackStack(null) // Make back button work as intended
             commit()
