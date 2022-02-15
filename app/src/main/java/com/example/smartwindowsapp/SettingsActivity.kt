@@ -34,19 +34,19 @@ class SettingsActivity : AppCompatActivity(), // Next line needed for onSharedPr
     }
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
-        if (key == "dark_mode")
-        {
-            val prefs = PreferenceManager.getDefaultSharedPreferences(this)
-            val dMode = prefs.getBoolean("dark_mode", true)
-            if(dMode)
-            {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            }
-            else
-            {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            }
-        }
+//        if (key == "dark_mode")
+//        {
+//            val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+//            val dMode = prefs.getBoolean("dark_mode", true)
+//            if(dMode)
+//            {
+//                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+//            }
+//            else
+//            {
+//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+//            }
+//        }
         }
 
     override fun onDestroy() {

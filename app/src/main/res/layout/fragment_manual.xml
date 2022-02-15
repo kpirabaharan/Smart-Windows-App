@@ -106,7 +106,7 @@
 
     <SeekBar
         android:id="@+id/blinds_seekbar"
-        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        style="@android:style/Widget.Material.SeekBar.Discrete"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
