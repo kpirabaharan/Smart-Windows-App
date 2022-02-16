@@ -14,6 +14,10 @@ class SettingsActivity : AppCompatActivity(), // Next line needed for onSharedPr
         super.onCreate(savedInstanceState)
         setContentView(R.layout.settings_activity)
 
+        // Sets Action Bar title to Settings
+        actionBar?.title = "Settings"
+        supportActionBar?.title = "Settings"
+
         // Assume this is used to save settings?
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction().replace(R.id.settings,
