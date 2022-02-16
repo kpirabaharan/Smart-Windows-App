@@ -6,15 +6,24 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
 import androidx.preference.PreferenceManager
 import com.example.smartwindowsapp.fragments.AutomaticFragment
 import com.example.smartwindowsapp.fragments.ManualFragment
 import com.example.smartwindowsapp.fragments.SmartFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_automatic.*
 
 class MainActivity : AppCompatActivity() {
+
+    private val mainD = Firebase.database.reference.child("SelectedMode")
+    private val modeD = mainD.child("Mode")
 
     private val autoFragment = AutomaticFragment()
     private val smartFragment = SmartFragment()
@@ -43,30 +52,32 @@ class MainActivity : AppCompatActivity() {
         setTheme(R.style.Theme_SmartWindowsApp)
         setContentView(R.layout.activity_main)
 
-        //val autoPref = getSharedPreferences("myPref", Context.MODE_PRIVATE)
+        var currentFragment: Int
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-
-        var currentFragment = fragment_c.getFragment<Fragment>()
-
-        setCurrentFragment(currentFragment, smartFragment) // Sets current fragment, default fragment smart
-        currentFragment = smartFragment
+        mainD.addListenerForSingleValueEvent(object: ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot){
+                val mainD = dataSnapshot.getValue<Int>()
+                if (mainD != null) {
+                    // Save data to local
+                    currentFragment = mainD
+                    when(currentFragment){
+                        1 -> setCurrentFragment(smartFragment)
+                        2 -> setCurrentFragment(autoFragment)
+                        3 -> setCurrentFragment(manualFragment)
+                    }
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
 
         // Sets fragment to appropriate mode based on the mode clicked in bottomNavBar
         bottomNavigationView.setOnNavigationItemSelectedListener{
             when(it.itemId){// Maps bottom navigation to modes
-                R.id.automatic -> {
-                    setCurrentFragment(currentFragment, autoFragment)
-                    currentFragment = autoFragment
-                }
-                R.id.manual -> {
-                    setCurrentFragment(currentFragment, manualFragment)
-                    currentFragment = manualFragment
-                }
-                R.id.smart -> {
-                    setCurrentFragment(currentFragment, smartFragment)
-                    currentFragment = smartFragment
-                }
+                R.id.automatic -> setCurrentFragment(autoFragment)
+                R.id.manual -> setCurrentFragment(manualFragment)
+                R.id.smart -> setCurrentFragment(smartFragment)
             }
             true
         }
@@ -88,12 +99,18 @@ class MainActivity : AppCompatActivity() {
         println(security)
     }
 
-    private fun setCurrentFragment(currentFrag: Fragment, fragment: Fragment) =
+    private fun setCurrentFragment(fragment: Fragment) =
         supportFragmentManager.beginTransaction().apply {
+            when(fragment){
+                smartFragment -> mainD.setValue(1)
+                autoFragment -> mainD.setValue(2)
+                manualFragment -> mainD.setValue(3)
+            }
             setReorderingAllowed(true)
+            //setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
             setCustomAnimations(R.anim.slide_in, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out)
-            if(currentFrag == autoFragment && fragment == smartFragment || currentFrag == manualFragment)
-                setCustomAnimations(R.anim.slide_in_back, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out_back)
+//            if(currentFrag == autoFragment && fragment == smartFragment || currentFrag == manualFragment)
+//                setCustomAnimations(R.anim.slide_in_back, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out_back)
             replace(R.id.fragment_c, fragment)
             addToBackStack(null) // Make back button work as intended
             commit()

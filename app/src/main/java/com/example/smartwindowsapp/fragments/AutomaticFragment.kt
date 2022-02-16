@@ -153,7 +153,7 @@ class AutomaticFragment : Fragment(R.layout.fragment_automatic){
             override fun onDataChange(dataSnapshot: DataSnapshot){
                 val wCloseHD = dataSnapshot.getValue<Int>()
                 if (wCloseHD != null) {
-                    wOpenSavedHour = wCloseHD
+                    wCloseSavedHour = wCloseHD
                     setTime(closeWText, wCloseSavedHour, wCloseSavedMinute)
                 }
             }
@@ -164,7 +164,7 @@ class AutomaticFragment : Fragment(R.layout.fragment_automatic){
             override fun onDataChange(dataSnapshot: DataSnapshot){
                 val wCloseMD = dataSnapshot.getValue<Int>()
                 if (wCloseMD != null) {
-                    wOpenSavedMinute = wCloseMD
+                    wCloseSavedMinute = wCloseMD
                     setTime(closeWText, wCloseSavedHour, wCloseSavedMinute)
                 }
             }
@@ -201,10 +201,17 @@ class AutomaticFragment : Fragment(R.layout.fragment_automatic){
     }
     // Text setting function
     private fun setTime(textV: TextView, hourOfDay: Int, minute: Int) {
-        if(minute in 0..9)
-            textV.text = "$hourOfDay:0$minute"
-        else
-            textV.text = "$hourOfDay:$minute"
+        if(hourOfDay == 0) {
+            if (minute in 0..9)
+                textV.text = "0$hourOfDay:0$minute"
+            else
+                textV.text = "$hourOfDay:$minute"
+        }
+        else {
+            if (minute in 0..9)
+                textV.text = "$hourOfDay:0$minute"
+            else
+                textV.text = "$hourOfDay:$minute"
+        }
     }
-
 }
