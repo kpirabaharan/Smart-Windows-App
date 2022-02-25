@@ -54,12 +54,6 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:icon="@drawable/ic_location"
-        android:title="Location">
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
         android:icon="@drawable/ic_security"
         android:title="Security">
 

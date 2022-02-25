@@ -9,6 +9,7 @@
         <entry key="..\:/Users/spkee/OneDrive - The University of Western Ontario/Desktop/Android Studio/SmartWindowsApp/app/src/main/res/drawable/ic_dark_mode.xml" value="0.24114583333333334" />
         <entry key="..\:/Users/spkee/OneDrive - The University of Western Ontario/Desktop/Android Studio/SmartWindowsApp/app/src/main/res/drawable/ic_gear.xml" value="0.30572916666666666" />
         <entry key="..\:/Users/spkee/OneDrive - The University of Western Ontario/Desktop/Android Studio/SmartWindowsApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.24114583333333334" />
+        <entry key="..\:/Users/spkee/OneDrive - The University of Western Ontario/Desktop/Android Studio/SmartWindowsApp/app/src/main/res/drawable/ic_location.xml" value="0.1825" />
         <entry key="..\:/Users/spkee/OneDrive - The University of Western Ontario/Desktop/Android Studio/SmartWindowsApp/app/src/main/res/drawable/ic_person.xml" value="0.24114583333333334" />
         <entry key="..\:/Users/spkee/OneDrive - The University of Western Ontario/Desktop/Android Studio/SmartWindowsApp/app/src/main/res/drawable/ic_security.xml" value="0.403125" />
         <entry key="..\:/Users/spkee/OneDrive - The University of Western Ontario/Desktop/Android Studio/SmartWindowsApp/app/src/main/res/drawable/ic_smart_foreground.xml" value="0.3145" />
@@ -18,10 +19,10 @@
         <entry key="..\:/Users/spkee/OneDrive - The University of Western Ontario/Desktop/Android Studio/SmartWindowsApp/app/src/main/res/layout/fragment_1.xml" value="0.21875" />
         <entry key="..\:/Users/spkee/OneDrive - The University of Western Ontario/Desktop/Android Studio/SmartWindowsApp/app/src/main/res/layout/fragment_automatic.xml" value="0.20464396284829722" />
         <entry key="..\:/Users/spkee/OneDrive - The University of Western Ontario/Desktop/Android Studio/SmartWindowsApp/app/src/main/res/layout/fragment_manual.xml" value="0.1903125" />
-        <entry key="..\:/Users/spkee/OneDrive - The University of Western Ontario/Desktop/Android Studio/SmartWindowsApp/app/src/main/res/layout/fragment_smart.xml" value="0.33" />
+        <entry key="..\:/Users/spkee/OneDrive - The University of Western Ontario/Desktop/Android Studio/SmartWindowsApp/app/src/main/res/layout/fragment_smart.xml" value="0.2253125" />
         <entry key="..\:/Users/spkee/OneDrive - The University of Western Ontario/Desktop/Android Studio/SmartWindowsApp/app/src/main/res/layout/fragment_weekday.xml" value="0.29583333333333334" />
         <entry key="..\:/Users/spkee/OneDrive - The University of Western Ontario/Desktop/Android Studio/SmartWindowsApp/app/src/main/res/layout/fragment_weekend.xml" value="0.3067708333333333" />
-        <entry key="..\:/Users/spkee/OneDrive - The University of Western Ontario/Desktop/Android Studio/SmartWindowsApp/app/src/main/res/layout/settings_activity.xml" value="0.2921875" />
+        <entry key="..\:/Users/spkee/OneDrive - The University of Western Ontario/Desktop/Android Studio/SmartWindowsApp/app/src/main/res/layout/settings_activity.xml" value="0.2253125" />
         <entry key="..\:/Users/spkee/OneDrive - The University of Western Ontario/Desktop/Android Studio/SmartWindowsApp/app/src/main/res/menu/mode_menus.xml" value="0.2444078947368421" />
         <entry key="..\:/Users/spkee/OneDrive - The University of Western Ontario/Desktop/Android Studio/SmartWindowsApp/app/src/main/res/menu/preferences.xml" value="0.38697916666666665" />
         <entry key="..\:/Users/spkee/OneDrive - The University of Western Ontario/Desktop/Android Studio/SmartWindowsApp/app/src/main/res/menu/preferences_menu.xml" value="0.38697916666666665" />

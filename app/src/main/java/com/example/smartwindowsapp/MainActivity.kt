@@ -11,19 +11,18 @@ import com.example.smartwindowsapp.fragments.AutomaticFragment
 import com.example.smartwindowsapp.fragments.ManualFragment
 import com.example.smartwindowsapp.fragments.SmartFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationBarView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_automatic.*
+
 
 class MainActivity : AppCompatActivity() {
 
     private val mainD = Firebase.database.reference.child("SelectedMode")
-    private val modeD = mainD.child("Mode")
 
     private val autoFragment = AutomaticFragment()
     private val smartFragment = SmartFragment()
@@ -43,6 +42,10 @@ class MainActivity : AppCompatActivity() {
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
             }
+//            R.id.action_location ->{
+//                // Start location settings
+//                val intent = Intent(this, )
+//            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -73,6 +76,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         // Sets fragment to appropriate mode based on the mode clicked in bottomNavBar
+        //NavigationBarView.OnItemSelectedListener {  }
         bottomNavigationView.setOnNavigationItemSelectedListener{
             when(it.itemId){// Maps bottom navigation to modes
                 R.id.automatic -> setCurrentFragment(autoFragment)
@@ -90,7 +94,6 @@ class MainActivity : AppCompatActivity() {
         val owner = prefs.getBoolean("primary_owner", false)
         val numUsers = prefs.getInt("user_number", 1)
         val security = prefs.getBoolean("close_option", false)
-        val dMode = prefs.getBoolean("dark_mode", false)
 
         //println(prefs)
         println(signature)
