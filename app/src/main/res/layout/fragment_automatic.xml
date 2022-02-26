@@ -113,7 +113,6 @@
         android:layout_marginTop="40dp"
         android:text="@string/blinds_text"
         android:textSize="40sp"
-        app:layout_constraintBottom_toTopOf="@+id/blinds_val"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"

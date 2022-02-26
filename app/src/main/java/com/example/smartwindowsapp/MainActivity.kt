@@ -11,7 +11,6 @@ import com.example.smartwindowsapp.fragments.AutomaticFragment
 import com.example.smartwindowsapp.fragments.ManualFragment
 import com.example.smartwindowsapp.fragments.SmartFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.navigation.NavigationBarView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -42,10 +41,11 @@ class MainActivity : AppCompatActivity() {
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
             }
-//            R.id.action_location ->{
-//                // Start location settings
-//                val intent = Intent(this, )
-//            }
+            R.id.action_location ->{
+                // Start location settings
+                val intent = Intent(this, MapsActivity::class.java)
+                startActivity(intent)
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -58,6 +58,7 @@ class MainActivity : AppCompatActivity() {
         var currentFragment: Int
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        // Loads current fragment from value retrieved from Firebase
         mainD.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot){
                 val mainD = dataSnapshot.getValue<Int>()
@@ -76,7 +77,6 @@ class MainActivity : AppCompatActivity() {
         })
 
         // Sets fragment to appropriate mode based on the mode clicked in bottomNavBar
-        //NavigationBarView.OnItemSelectedListener {  }
         bottomNavigationView.setOnNavigationItemSelectedListener{
             when(it.itemId){// Maps bottom navigation to modes
                 R.id.automatic -> setCurrentFragment(autoFragment)

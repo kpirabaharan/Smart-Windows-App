@@ -8,11 +8,9 @@ import com.example.smartwindowsapp.R
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_smart.*
-import kotlinx.coroutines.*
-import java.lang.Exception
+
 
 class SmartFragment : Fragment(R.layout.fragment_smart){
     // Realtime Database
@@ -20,7 +18,7 @@ class SmartFragment : Fragment(R.layout.fragment_smart){
     private val tempD = sD.child("temp")
     private val unitD = sD.child("unit")
 
-    var temp = 0;
+    var temp = 0
     var cOrF = "°C"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -32,7 +30,6 @@ class SmartFragment : Fragment(R.layout.fragment_smart){
         desired_temp_text.text = "Set Desired Temperature"
         // Temperature Units, should move to settings
         val unit = arrayOf("°C", "°F")
-        var sBool = false
         temp_input.minValue = 15
         temp_input.maxValue = 30
         temp_unit.displayedValues = unit
@@ -60,13 +57,13 @@ class SmartFragment : Fragment(R.layout.fragment_smart){
             }
         })
         // Temperature Selection
-        temp_input.setOnValueChangedListener { numberPicker, oldVal, newVal ->
+        temp_input.setOnValueChangedListener { _, _, newVal ->
             temp = newVal
             tempD.setValue(newVal)
             desiredTempText()
         }
 
-        temp_unit.setOnValueChangedListener { numberPicker, oldVal, newVal ->
+        temp_unit.setOnValueChangedListener { _, _, newVal ->
             // Uploads 0 if C, 1 if F
             unitD.setValue(newVal)
             // If unit is C change values to 15...30 and default value of 15
@@ -81,10 +78,10 @@ class SmartFragment : Fragment(R.layout.fragment_smart){
                 temp_input.maxValue = 86
             }
             cOrF = unit[newVal]
-            if(temp_unit.value == 0)
-                temp = 15
+            temp = if(temp_unit.value == 0)
+                15
             else
-                temp = 59
+                59
             tempD.setValue(temp)
             desiredTempText()
         }

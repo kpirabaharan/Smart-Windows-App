@@ -3,7 +3,6 @@ package com.example.smartwindowsapp
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 
@@ -15,8 +14,8 @@ class SettingsActivity : AppCompatActivity(), // Next line needed for onSharedPr
         setContentView(R.layout.settings_activity)
 
         // Sets Action Bar title to Settings
-        actionBar?.title = "Settings"
-        supportActionBar?.title = "Settings"
+//        actionBar?.title = "Settings"
+//        supportActionBar?.title = "Settings"
 
         // Assume this is used to save settings?
         if (savedInstanceState == null) {

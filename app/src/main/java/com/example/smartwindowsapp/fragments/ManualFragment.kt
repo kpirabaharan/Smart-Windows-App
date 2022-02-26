@@ -1,6 +1,5 @@
 package com.example.smartwindowsapp.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.SeekBar

@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.smartwindowsapp">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_smart_home_windows"
@@ -9,16 +13,36 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartWindowsApp">
+
+        <!--
+             To get one, follow the directions here:
+
+                https://developers.google.com/maps/documentation/android-sdk/get-api-key
+
+             Once you have your API key (it starts with "AIza"), define a new property in your
+             project's local.properties file (e.g. MAPS_API_KEY=Aiza...), and replace the
+             "YOUR_API_KEY" string in this file with "${MAPS_API_KEY}".
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyC6xF6PKKPfRdGdO1U9p7-U0fKfbD6v3Kw" />
+
+        <activity
+            android:name=".MapsActivity"
+            android:exported="false"
+            android:label="Location Settings"
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".SettingsActivity"
             android:exported="false"
-            android:parentActivityName=".MainActivity"/>
-<!--        Lets back button in Settings go back to Main Activity-->
+            android:label="Settings"
+            android:parentActivityName=".MainActivity" /> <!-- Lets back button in Settings go back to Main Activity -->
         <activity
-            android:theme="@style/splashScreenTheme"
             android:name=".MainActivity"
-            android:exported="true">
-            <!--        Default theme set to splash screen, later set to normal theme, only applied to main activity-->
+            android:exported="true"
+            android:theme="@style/splashScreenTheme">
+
+            <!-- Default theme set to splash screen, later set to normal theme, only applied to main activity -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

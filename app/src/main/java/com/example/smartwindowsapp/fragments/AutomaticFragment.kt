@@ -1,5 +1,6 @@
 package com.example.smartwindowsapp.fragments
 
+import android.annotation.SuppressLint
 import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.View
@@ -34,8 +35,8 @@ class AutomaticFragment : Fragment(R.layout.fragment_automatic){
     private val wCloseHD = aWindowsD.child("wCloseHour")
     private val wCloseMD = aWindowsD.child("wCloseMinute")
 
-    var hour = 0
-    var minute = 0
+    private var hour = 0
+    private var minute = 0
 
     // Local values
     var bOpenSavedHour = 0
@@ -49,7 +50,7 @@ class AutomaticFragment : Fragment(R.layout.fragment_automatic){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val bOpen = TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+        val bOpen = TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
             bOpenSavedHour = hourOfDay
             bOpenSavedMinute = minute
             // Save Values to Realtime Database
@@ -58,21 +59,21 @@ class AutomaticFragment : Fragment(R.layout.fragment_automatic){
             // Set appropriate text
             setTime(openBText, hourOfDay, minute)
         }
-        val bClose = TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+        val bClose = TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
             bCloseSavedHour = hourOfDay
             bCloseSavedMinute = minute
             bCloseHD.setValue(hourOfDay)
             bCloseMD.setValue(minute)
             setTime(closeBText, hourOfDay, minute)
         }
-        val wOpen = TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+        val wOpen = TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
             wOpenSavedHour = hourOfDay
             wOpenSavedMinute  = minute
             wOpenHD.setValue(hourOfDay)
             wOpenMD.setValue(minute)
             setTime(openWText, hourOfDay, minute)
         }
-        val wClose = TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+        val wClose = TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
             wCloseSavedHour = hourOfDay
             wCloseSavedMinute = minute
             wCloseHD.setValue(hourOfDay)
@@ -200,6 +201,7 @@ class AutomaticFragment : Fragment(R.layout.fragment_automatic){
         minute = cal.get(Calendar.MINUTE)
     }
     // Text setting function
+    @SuppressLint("SetTextI18n")
     private fun setTime(textV: TextView, hourOfDay: Int, minute: Int) {
         if(hourOfDay == 0) {
             if (minute in 0..9)
