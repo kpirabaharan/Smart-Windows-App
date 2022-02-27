@@ -66,9 +66,18 @@ class MainActivity : AppCompatActivity() {
                     // Save data to local
                     currentFragment = mainD
                     when(currentFragment){
-                        1 -> setCurrentFragment(smartFragment)
-                        2 -> setCurrentFragment(autoFragment)
-                        3 -> setCurrentFragment(manualFragment)
+                        1 -> {
+                            setCurrentFragment(smartFragment)
+                            bottomNavigationView.selectedItemId = R.id.smart
+                        }
+                        2 -> {
+                            setCurrentFragment(autoFragment)
+                            bottomNavigationView.selectedItemId = R.id.automatic
+                        }
+                        3 -> {
+                            setCurrentFragment(manualFragment)
+                            bottomNavigationView.selectedItemId = R.id.manual
+                        }
                     }
                 }
             }

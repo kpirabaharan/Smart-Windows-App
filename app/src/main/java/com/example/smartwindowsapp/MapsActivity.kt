@@ -3,26 +3,23 @@ package com.example.smartwindowsapp
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import android.content.res.Resources
 import android.graphics.Color
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-
+import com.example.smartwindowsapp.databinding.ActivityMapsBinding
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.example.smartwindowsapp.databinding.ActivityMapsBinding
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.maps.model.Circle
-import com.google.android.gms.maps.model.CircleOptions
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -31,8 +28,9 @@ import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_maps.*
 
+
 const val LOCATION_ACCESS_REQUEST_CODE = 10001
-const val CAMERA_ZOOM_LEVEL = 18f
+const val CAMERA_ZOOM_LEVEL = 17.5f
 const val RADIUS = 40.0
 const val TAG = "MapsActivity" // Debugging
 
@@ -78,12 +76,38 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         var currentDLat = 43.006000487147425
         var currentDLong = -81.27477160512986
 
+        // Dark maps
+        try {
+            // Customise the styling of the base map using a JSON object defined
+            // in a raw resource file.
+            val success = googleMap.setMapStyle(
+                MapStyleOptions.loadRawResourceStyle(
+                    this, R.raw.style_json
+                )
+            )
+            if (!success) {
+                Log.e(TAG, "Style parsing failed.")
+            }
+        } catch (e: Resources.NotFoundException) {
+            Log.e(TAG, "Can't find style. Error: ", e)
+        }
+
         latD.addListenerForSingleValueEvent(object: ValueEventListener{
             override fun onDataChange(datasnapshot: DataSnapshot) {
                 val currentDLatD = datasnapshot.getValue<Double>() // temp value
                 Log.d(TAG, "Received Lat Data")
                 if (currentDLatD != null) {
                     currentDLat = currentDLatD
+                }
+                // Device Home Location
+                cDLocation = LatLng(currentDLat, currentDLong)
+                with(map){
+                    clear()
+                    addMarker(cDLocation)
+                    addCircle(cDLocation)
+                    moveCamera(CameraUpdateFactory.newLatLngZoom(cDLocation, CAMERA_ZOOM_LEVEL))
+                    // Whichever database listener acts second overrides previous action with both
+                    // long and lat values
                 }
             }
             override fun onCancelled(error: DatabaseError) {
@@ -99,11 +123,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 // Device Home Location
                 cDLocation = LatLng(currentDLat, currentDLong)
                 with(map) {
+                    clear()
                     addMarker(cDLocation)
                     addCircle(cDLocation)
                     moveCamera(CameraUpdateFactory.newLatLngZoom(cDLocation, CAMERA_ZOOM_LEVEL))
                 }
-
             }
             override fun onCancelled(error: DatabaseError) {
             }
