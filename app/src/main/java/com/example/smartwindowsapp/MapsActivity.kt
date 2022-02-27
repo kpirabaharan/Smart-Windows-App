@@ -30,7 +30,7 @@ import kotlinx.android.synthetic.main.activity_maps.*
 
 
 const val LOCATION_ACCESS_REQUEST_CODE = 10001
-const val CAMERA_ZOOM_LEVEL = 17.5f
+const val CAMERA_ZOOM_LEVEL = 17f
 const val RADIUS = 40.0
 const val TAG = "MapsActivity" // Debugging
 
