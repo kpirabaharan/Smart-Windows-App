@@ -210,6 +210,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             CircleOptions()
                 .center(latLng)
                 .radius(RADIUS)
+                .strokeWidth(2F)
                 .strokeColor(Color.argb(255, 255, 0, 0))
                 .fillColor(Color.argb(64, 255, 0, 0))
         )

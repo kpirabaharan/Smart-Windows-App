@@ -14,14 +14,6 @@ buildscript {
         // in the individual module build.gradle files
     }
 }
-// Code palace firebase vid
-//allprojects {
-//    repositories {
-//        google()
-//        jcenter()
-//        maven { url "https://jitpack.io" }
-//    }
-//}
 
 task clean(type: Delete) {
     delete rootProject.buildDir
