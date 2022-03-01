@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".LoginActivity"
+    android:theme="@style/splashScreenTheme"
     android:background="@android:color/darker_gray">
 
     <androidx.cardview.widget.CardView
@@ -30,6 +31,18 @@
                 android:layout_height="100dp"
                 android:layout_margin="10dp"
                 android:src="@drawable/ic_launcher_background" />
+
+            <!--<EditText
+                android:id="@+id/et_profileUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/round_buttons"
+                android:backgroundTint="#F2F2F2"
+                android:ems="10"
+                android:hint="Username"
+                android:inputType="textPersonName"
+                android:padding="10dp" />-->
 
             <EditText
                 android:id="@+id/et_emailLogin"
@@ -65,7 +78,6 @@
                     android:layout_margin="10dp"
                     android:layout_weight="1"
                     android:background="@drawable/round_buttons"
-                    android:backgroundTint="#FFA726"
                     android:text="Sign up"
                     android:textColor="@android:color/white" />
 
@@ -76,7 +88,6 @@
                     android:layout_margin="10dp"
                     android:layout_weight="1"
                     android:background="@drawable/round_buttons"
-                    android:backgroundTint="#42A5F5"
                     android:text="Login"
                     android:textColor="@android:color/white" />
 

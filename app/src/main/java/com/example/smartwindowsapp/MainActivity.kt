@@ -5,23 +5,29 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import com.example.smartwindowsapp.fragments.AutomaticFragment
 import com.example.smartwindowsapp.fragments.ManualFragment
 import com.example.smartwindowsapp.fragments.SmartFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.tasks.await
 
 
 class MainActivity : AppCompatActivity() {
 
+    // Firebase Realtime
     private val mainD = Firebase.database.reference.child("SelectedMode")
+    // Firebase Auth
+    private lateinit var auth: FirebaseAuth
 
     private val autoFragment = AutomaticFragment()
     private val smartFragment = SmartFragment()
@@ -30,12 +36,19 @@ class MainActivity : AppCompatActivity() {
     //private lateinit var binding: ActivityMainBinding //What is this?
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.settings_menu, menu)
+        menuInflater.inflate(R.menu.upper_menu, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        auth = FirebaseAuth.getInstance()
         when (item.itemId) {
+            R.id.logout -> {
+                auth.signOut()
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+                Toast.makeText(this, "Successfully signed out!", Toast.LENGTH_SHORT).show()
+            }
             R.id.action_settings -> {
                 // Start settings menu
                 val intent = Intent(this, SettingsActivity::class.java)
@@ -55,46 +68,55 @@ class MainActivity : AppCompatActivity() {
         setTheme(R.style.Theme_SmartWindowsApp)
         setContentView(R.layout.activity_main)
 
-        var currentFragment: Int
+        auth = FirebaseAuth.getInstance()
 
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-        // Loads current fragment from value retrieved from Firebase
-        mainD.addListenerForSingleValueEvent(object: ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot){
-                val mainD = dataSnapshot.getValue<Int>()
-                if (mainD != null) {
-                    // Save data to local
-                    currentFragment = mainD
-                    when(currentFragment){
-                        1 -> {
-                            setCurrentFragment(smartFragment)
-                            bottomNavigationView.selectedItemId = R.id.smart
-                        }
-                        2 -> {
-                            setCurrentFragment(autoFragment)
-                            bottomNavigationView.selectedItemId = R.id.automatic
-                        }
-                        3 -> {
-                            setCurrentFragment(manualFragment)
-                            bottomNavigationView.selectedItemId = R.id.manual
+        // If not loggedin, launch LoginActivity
+        if(auth.currentUser != null) {
+            var currentFragment: Int
+
+            val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+            // Loads current fragment from value retrieved from Firebase
+            mainD.addListenerForSingleValueEvent(object: ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot){
+                    val mainD = dataSnapshot.getValue<Int>()
+                    if (mainD != null) {
+                        // Save data to local
+                        currentFragment = mainD
+                        when(currentFragment){
+                            1 -> {
+                                setCurrentFragment(smartFragment)
+                                bottomNavigationView.selectedItemId = R.id.smart
+                            }
+                            2 -> {
+                                setCurrentFragment(autoFragment)
+                                bottomNavigationView.selectedItemId = R.id.automatic
+                            }
+                            3 -> {
+                                setCurrentFragment(manualFragment)
+                                bottomNavigationView.selectedItemId = R.id.manual
+                            }
                         }
                     }
                 }
-            }
-            override fun onCancelled(error: DatabaseError) {
-            }
-        })
+                override fun onCancelled(error: DatabaseError) {
+                }
+            })
 
-        // Sets fragment to appropriate mode based on the mode clicked in bottomNavBar
-        bottomNavigationView.setOnNavigationItemSelectedListener{
-            when(it.itemId){// Maps bottom navigation to modes
-                R.id.automatic -> setCurrentFragment(autoFragment)
-                R.id.manual -> setCurrentFragment(manualFragment)
-                R.id.smart -> setCurrentFragment(smartFragment)
+            // Sets fragment to appropriate mode based on the mode clicked in bottomNavBar
+            bottomNavigationView.setOnNavigationItemSelectedListener{
+                when(it.itemId){// Maps bottom navigation to modes
+                    R.id.automatic -> setCurrentFragment(autoFragment)
+                    R.id.manual -> setCurrentFragment(manualFragment)
+                    R.id.smart -> setCurrentFragment(smartFragment)
+                }
+                true
             }
-            true
+            mySettings() // Runs function to retrieve setting values
         }
-        mySettings() // Runs function to retrieve setting values
+        else{
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun mySettings() { // Function to get settings values
