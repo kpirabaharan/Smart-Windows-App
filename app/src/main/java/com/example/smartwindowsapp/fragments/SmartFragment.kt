@@ -23,15 +23,16 @@ class SmartFragment : Fragment(R.layout.fragment_smart){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        desired_temp_text.text = "Set Desired Temperature"
         temperatureChange()
     }
 
     private fun temperatureChange(){
-        desired_temp_text.text = "Set Desired Temperature"
         // Temperature Units, should move to settings
         val unit = arrayOf("°C", "°F")
         temp_input.minValue = 15
-        temp_input.maxValue = 30
+        temp_input.maxValue = 33
+        temp_input.value = 23
         temp_unit.displayedValues = unit
         temp_unit.minValue = 0
         temp_unit.maxValue = unit.size-1
@@ -42,9 +43,9 @@ class SmartFragment : Fragment(R.layout.fragment_smart){
                 val tempData = dataSnapshot.getValue<Int>()
                 if (tempData != null) {
                     temp = tempData
-                    if(temp in 59..86) {
+                    if(temp in 59..91) {
                         temp_input.minValue = 59
-                        temp_input.maxValue = 86
+                        temp_input.maxValue = 91
                         temp_unit.value = 1
                         cOrF = "°F"
                     }
@@ -75,7 +76,7 @@ class SmartFragment : Fragment(R.layout.fragment_smart){
             // If unit is F change values to 59...86 and default value of 59
             else {
                 temp_input.minValue = 59
-                temp_input.maxValue = 86
+                temp_input.maxValue = 91
             }
             cOrF = unit[newVal]
             temp = if(temp_unit.value == 0)
@@ -88,8 +89,10 @@ class SmartFragment : Fragment(R.layout.fragment_smart){
     }
 
     private fun desiredTempText(){
-        desired_temp_text.text = "Desired Temperature: "
-        desired_temp_text.append(temp.toString())
-        desired_temp_text.append(cOrF)
+        if(temp!=0) {
+            desired_temp_text.text = "Desired Temperature: "
+            desired_temp_text.append(temp.toString())
+            desired_temp_text.append(cOrF)
+        }
     }
 }

@@ -46,7 +46,7 @@
         <SeekBarPreference
             android:max="100"
             app:defaultValue="100"
-            app:key="auto_window_open"
+            app:key="auto_windows_open"
             app:min="1"
             app:showSeekBarValue="true"
             app:title="Windows Open to (Auto) " />
@@ -59,11 +59,11 @@
 
         <SwitchPreference
             android:dependency="primary_owner"
-            android:defaultValue="false"
+            android:defaultValue="true"
             android:key="close_option"
             android:title="@string/close_title"
-            android:summaryOn="Device will close when you leave"
-            android:summaryOff="Device will close when everyone leaves"/>
+            android:summaryOn="Device will close when everyone leaves"
+            android:summaryOff="Device won't close when everyone leaves"/>
 
     </PreferenceCategory>
 

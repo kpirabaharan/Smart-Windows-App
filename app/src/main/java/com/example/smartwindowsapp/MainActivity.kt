@@ -111,6 +111,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 true
             }
+
             mySettings() // Runs function to retrieve setting values
         }
         else{
