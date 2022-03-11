@@ -2,6 +2,7 @@ package com.example.smartwindowsapp
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.PendingIntent
 import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.graphics.Color
@@ -14,6 +15,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.smartwindowsapp.databinding.ActivityMapsBinding
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.Geofence
+import com.google.android.gms.location.GeofencingClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -27,12 +30,14 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_maps.*
+import java.lang.Exception
 
 
 const val LOCATION_ACCESS_REQUEST_CODE = 10001
 const val CAMERA_ZOOM_LEVEL = 17f
-const val RADIUS = 40.0
+const val RADIUS = 75.0
 const val TAG = "MapsActivity" // Debugging
+const val GEOFENCE_ID = "GEOFENCE_ID"
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -43,8 +48,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var map: GoogleMap
     private lateinit var binding: ActivityMapsBinding
+    private lateinit var geofencingClient: GeofencingClient
+    private lateinit var geofenceHelper: GeofenceHelper
+
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var cDLocation: LatLng // Current Location
+
+//    // Once value reaches 2 implements geofence because there are two listeners that activate on start up with
+//    private var initIncrement = 0
 
     private var circle: Circle?= null
 
@@ -52,13 +63,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMapsBinding.inflate(layoutInflater)
+        geofencingClient = LocationServices.getGeofencingClient(this)
+        geofenceHelper = GeofenceHelper(this)
+        // FusedLocationProvider to obtain current location
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         setContentView(binding.root)
 
         // This enables back button in actionBar
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        // FusedLocationProvider to obtain current location
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
@@ -70,6 +82,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         map = googleMap
         map.uiSettings.setAllGesturesEnabled(false)
         map.uiSettings.isMapToolbarEnabled = false
+
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+            == PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission
+                (this, Manifest.permission.ACCESS_COARSE_LOCATION)
+            == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission
+                (this, Manifest.permission.ACCESS_BACKGROUND_LOCATION)
+            == PackageManager.PERMISSION_GRANTED)
+                map.isMyLocationEnabled = true
 
         // Receive device latitude and longitude values from Firebase
         // Default Set to Alumni Hall
@@ -148,11 +168,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             == PackageManager.PERMISSION_GRANTED){
             map.isMyLocationEnabled = true
             fusedLocationProviderClient.lastLocation.addOnSuccessListener {
+
                 cDLocation = LatLng(it.latitude, it.longitude)
                 latD.setValue(it.latitude)
                 longD.setValue(it.longitude)
                 Log.d(TAG, "Updated Device Location Data")
-                Toast.makeText(this@MapsActivity, "Device Home Location Set", Toast.LENGTH_LONG).show() // Move when geofence is created
+                //Toast.makeText(this@MapsActivity, "Device Home Location Set", Toast.LENGTH_LONG).show() // Move when geofence is created
                 with(map) {
                     // Removes previous set device location markers
                     clear()
@@ -160,6 +181,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     addCircle(cDLocation)
                     moveCamera(CameraUpdateFactory.newLatLngZoom(cDLocation, CAMERA_ZOOM_LEVEL))
                 }
+                addGeofence(cDLocation, RADIUS.toFloat())
             }
         }
         else{
@@ -197,6 +219,22 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             }
             super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         }
+    }
+
+    private fun addGeofence(latLng: LatLng, radius: Float){
+        // Registering a geofence with the same ID removes previous geofence
+        val geofence = geofenceHelper.getGeofence(GEOFENCE_ID, latLng, radius, Geofence.GEOFENCE_TRANSITION_ENTER or Geofence.GEOFENCE_TRANSITION_EXIT)
+        val geofencingRequest = geofenceHelper.getGeofencingRequest(geofence)
+        val pendingIntent = geofenceHelper.getPendingIntent()
+        geofencingClient.addGeofences(geofencingRequest, pendingIntent)
+            .addOnSuccessListener {
+                Log.d(TAG, "onSuccess: Geofence Added...")
+                Toast.makeText(this@MapsActivity, "Geofence added around device!", Toast.LENGTH_LONG).show()
+            }
+            .addOnFailureListener { e: Exception ->
+                val errorMessage = geofenceHelper.getErrorString(e)
+                Log.d(TAG, "onFailure$errorMessage")
+            }
     }
 
     private fun addMarker(latLng: LatLng){
