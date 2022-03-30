@@ -47,6 +47,8 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
         // Below for Dark Mode
         PreferenceManager.getDefaultSharedPreferences(this)
             .registerOnSharedPreferenceChangeListener(this)
+
+
     }
 
     // Inflates hierarchy from XML attribute

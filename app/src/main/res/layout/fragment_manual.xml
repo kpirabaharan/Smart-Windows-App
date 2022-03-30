@@ -10,40 +10,40 @@
         android:id="@+id/window_open"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
         android:text="@string/open_text"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/window_seekbar" />
 
     <TextView
         android:id="@+id/window_close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
         android:text="@string/close_text"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/window_seekbar" />
 
     <TextView
         android:id="@+id/blinds_close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
         android:text="@string/close_text"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/blinds_seekbar" />
 
     <TextView
         android:id="@+id/blinds_open"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
         android:text="@string/open_text"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/blinds_seekbar" />
 
     <TextView

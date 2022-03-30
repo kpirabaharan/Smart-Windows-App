@@ -11,6 +11,7 @@ import androidx.preference.PreferenceManager
 import com.example.smartwindowsapp.fragments.AutomaticFragment
 import com.example.smartwindowsapp.fragments.ManualFragment
 import com.example.smartwindowsapp.fragments.SmartFragment
+import com.example.smartwindowsapp.fragments.TestFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -32,6 +33,7 @@ class MainActivity : AppCompatActivity() {
     private val autoFragment = AutomaticFragment()
     private val smartFragment = SmartFragment()
     private val manualFragment = ManualFragment()
+    private val testFragment = TestFragment()
 
     //private lateinit var binding: ActivityMainBinding //What is this?
 
@@ -95,6 +97,10 @@ class MainActivity : AppCompatActivity() {
                                 setCurrentFragment(manualFragment)
                                 bottomNavigationView.selectedItemId = R.id.manual
                             }
+                            4 -> {
+                                setCurrentFragment(testFragment)
+                                bottomNavigationView.selectedItemId = R.id.test
+                            }
                         }
                     }
                 }
@@ -108,6 +114,7 @@ class MainActivity : AppCompatActivity() {
                     R.id.automatic -> setCurrentFragment(autoFragment)
                     R.id.manual -> setCurrentFragment(manualFragment)
                     R.id.smart -> setCurrentFragment(smartFragment)
+                    R.id.test -> setCurrentFragment(testFragment)
                 }
                 true
             }
@@ -140,6 +147,7 @@ class MainActivity : AppCompatActivity() {
                 smartFragment -> mainD.setValue(1)
                 autoFragment -> mainD.setValue(2)
                 manualFragment -> mainD.setValue(3)
+                testFragment -> mainD.setValue(4)
             }
             setReorderingAllowed(true)
             //setCustomAnimations(R.anim.fade_in, R.anim.fade_out)

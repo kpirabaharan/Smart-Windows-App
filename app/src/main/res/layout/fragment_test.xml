@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.TestFragment">
+
+    <ToggleButton
+        android:id="@+id/toggle_rain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textOff="Clear"
+        android:textOn="Raining"
+        app:layout_constraintBottom_toTopOf="@+id/txt_inside"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_rain" />
+
+    <TextView
+        android:id="@+id/txt_light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Light"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/toggle_light"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_rain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rain"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/toggle_rain"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toggle_light" />
+
+    <TextView
+        android:id="@+id/txt_inside"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Inside Temperature"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/editTextInsideTemp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toggle_rain" />
+
+    <EditText
+        android:id="@+id/editTextInsideTemp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Enter Temperature"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/btn_insideTempSet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_inside" />
+
+    <Button
+        android:id="@+id/btn_outsideTempSet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextOutsideTemp" />
+
+    <TextView
+        android:id="@+id/txt_outside"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Outside Temperature"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/editTextOutsideTemp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_insideTempSet" />
+
+    <EditText
+        android:id="@+id/editTextOutsideTemp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Enter Temperature"
+        android:inputType="numberSigned"
+        app:layout_constraintBottom_toTopOf="@+id/btn_outsideTempSet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_outside" />
+
+    <Button
+        android:id="@+id/btn_insideTempSet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set"
+        app:layout_constraintBottom_toTopOf="@+id/txt_outside"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextInsideTemp" />
+
+    <ToggleButton
+        android:id="@+id/toggle_light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ToggleButton"
+        android:textOff="Dark"
+        android:textOn="Sunny"
+        app:layout_constraintBottom_toTopOf="@+id/txt_rain"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_light" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

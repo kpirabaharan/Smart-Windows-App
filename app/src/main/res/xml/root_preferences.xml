@@ -36,18 +36,18 @@
         tools:ignore="TextContrastCheck">
 
         <SeekBarPreference
-            android:max="100"
-            app:defaultValue="100"
+            android:max="10"
+            app:defaultValue="10"
             app:key="auto_blinds_open"
-            app:min="1"
+            app:min="0"
             app:showSeekBarValue="true"
             app:title="Blinds Open to (Auto) " />
 
         <SeekBarPreference
-            android:max="100"
-            app:defaultValue="100"
+            android:max="10"
+            app:defaultValue="10"
             app:key="auto_windows_open"
-            app:min="1"
+            app:min="0"
             app:showSeekBarValue="true"
             app:title="Windows Open to (Auto) " />
 

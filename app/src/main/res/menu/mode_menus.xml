@@ -13,4 +13,8 @@
         android:id="@+id/manual"
         android:title="Manual"
         android:icon="@drawable/ic_manual_foreground"/>
+    <item
+        android:id="@+id/test"
+        android:title="Test"
+        android:icon="@drawable/ic_test_foreground"/>
 </menu>
