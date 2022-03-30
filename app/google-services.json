@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1035393408535",
+    "firebase_url": "https://smart-windows-app-edc8a-default-rtdb.firebaseio.com",
+    "project_id": "smart-windows-app-edc8a",
+    "storage_bucket": "smart-windows-app-edc8a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1035393408535:android:f96a59a9fd9cab70f40652",
+        "android_client_info": {
+          "package_name": "com.example.smartwindowsapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1035393408535-jp4g4ehmd4cmuj9j5ni596cdq8s367se.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwaAO469GyN_QB4_BgGbIjCMHfBAN6lLk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1035393408535-jp4g4ehmd4cmuj9j5ni596cdq8s367se.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
