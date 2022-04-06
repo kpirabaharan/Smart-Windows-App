@@ -70,7 +70,7 @@ class SmartFragment : Fragment(R.layout.fragment_smart){
             // If unit is C change values to 15...30 and default value of 15
             if (temp_unit.value == 0) {
                 temp_input.minValue = 15
-                temp_input.maxValue = 30
+                temp_input.maxValue = 33
                 temp_input.value = 15
             }
             // If unit is F change values to 59...86 and default value of 59

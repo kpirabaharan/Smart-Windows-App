@@ -20,8 +20,8 @@ class TestFragment : Fragment(R.layout.fragment_test) {
     private val insideTempD = tD.child("insideTemp")
     private val outsideTempD = tD.child("outsideTemp")
 
-    var light = 0
-    var rain = 0
+    var light = false
+    var rain = false
     var insideTemp = ""
     var outsideTemp = ""
 
@@ -34,14 +34,11 @@ class TestFragment : Fragment(R.layout.fragment_test) {
         // Get Light Val
         lightD.addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val lightData = dataSnapshot.getValue<Int>()
-                if(lightData != null){
+                val lightData = dataSnapshot.getValue<Boolean>()
+                if (lightData != null) {
                     light = lightData
-                    if(light == 1)
-                        toggle_light.isChecked = true
-                    if(light == 0)
-                        toggle_light.isChecked = false
                 }
+                toggle_light.isChecked = light
             }
             override fun onCancelled(error: DatabaseError) {
             }
@@ -49,24 +46,21 @@ class TestFragment : Fragment(R.layout.fragment_test) {
         // Set Light ToggleButton
         toggle_light.setOnCheckedChangeListener { _, isChecked ->
             if(isChecked){
-                light = 1
-                lightD.setValue(1)
+                light = true
+                lightD.setValue(true)
             }
             else{
-                light = 0
-                lightD.setValue(0)
+                light = false
+                lightD.setValue(false)
             }
         }
         // Get Rain Val
         rainD.addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val rainData = dataSnapshot.getValue<Int>()
+                val rainData = dataSnapshot.getValue<Boolean>()
                 if(rainData != null){
                     rain = rainData
-                    if(rain == 1)
-                        toggle_rain.isChecked = true
-                    if(rain == 0)
-                        toggle_rain.isChecked = false
+                    toggle_rain.isChecked = rain
                 }
             }
             override fun onCancelled(error: DatabaseError) {
@@ -75,12 +69,12 @@ class TestFragment : Fragment(R.layout.fragment_test) {
         // Set Rain ToggleButton
         toggle_rain.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                rain = 1
-                rainD.setValue(1)
+                rain = true
+                rainD.setValue(true)
             }
             else{
-                rain = 0
-                rainD.setValue(0)
+                rain = false
+                rainD.setValue(false)
             }
         }
         // Get Inside Temp
