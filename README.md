@@ -50,6 +50,20 @@ Introducing the Smart Windows Raspberry Pi Project, where you can take charge of
 - **Firebase:** Cloud-based backend for real-time data synchronization and geofencing.
 - **Geofencing:** Ensures windows are closed when users leave home.
 
+## Reports and Documentation
+
+### Final Report
+
+[Click to view the final report](./documentation/Capstone%20Final%20Report.pdf)
+
+### Final Showcase Abstract
+
+[Click to view the abstract](./documentation/Abstract.pdf)
+
+### Final Showcase Poster
+
+[Click to view the poster](./documentation/MSE%20Poster%20Template.pdf)
+
 ## License
 
 This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
