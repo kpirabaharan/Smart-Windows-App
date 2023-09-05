@@ -17,16 +17,30 @@ Introducing the Smart Windows Raspberry Pi Project, where you can take charge of
   - Utilize a combination of light, rain, and temperature sensors to intelligently determine when windows should be opened or closed.
 
 - **Geofencing:**
+
   - The Android app uses geofencing to detect when you leave the house, automatically closing windows for security and energy savings.
 
-## How It Works
+## Demo Video
 
-1. Install the Raspberry Pi module on your windows.
-2. Connect the Raspberry Pi to the sensors (light, rain, and temperature) and your home Wi-Fi network.
-3. Download the Android application and sign in with your Firebase account.
-4. Configure your windows in the app and choose between Manual, Smart, or Automatic mode.
-5. The system will use sensor data and scheduling to manage window operations.
-6. Geofencing ensures that your windows are closed when you leave home.
+[Click Here to Watch the Demonstration Video on Youtube](https://www.youtube.com/watch?v=4RYRujc7fvM)
+
+## Android Application Screenshots
+
+### Manual
+
+<img src="./screenshots/Manual.jpg" alt="Manual-Mode" width="250"/>
+
+### Automatic
+
+<img src="./screenshots/Automatic.jpg" alt="Automatic-Mode" width="250"/>
+
+### Smart
+
+<img src="./screenshots/Smart.jpg" alt="Smart-Mode" width="250"/>
+
+### Geofence (One-Click Setup)
+
+<img src="./screenshots/Geofence.jpg" alt="Geofence-Tech" width="250"/>
 
 ## Technologies Used
 
@@ -35,10 +49,6 @@ Introducing the Smart Windows Raspberry Pi Project, where you can take charge of
 - **Android Application:** Firebase-powered app for remote control and automation.
 - **Firebase:** Cloud-based backend for real-time data synchronization and geofencing.
 - **Geofencing:** Ensures windows are closed when users leave home.
-
-## Demo Video
-
-[Click Here to Watch the Demonstration Video on Youtube](https://www.youtube.com/watch?v=4RYRujc7fvM)
 
 ## License
 
